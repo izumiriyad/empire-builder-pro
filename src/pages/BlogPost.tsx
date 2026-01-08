@@ -288,7 +288,23 @@ const BlogPost = () => {
         <title>{post.title} | CreatorHub</title>
         <meta name="description" content={post.metaDescription} />
         <meta name="keywords" content={post.keywords} />
-        <link rel="canonical" href={`/blog/${slug}`} />
+        <link rel="canonical" href={`https://creatorhub.com/blog/${slug}`} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.metaDescription} />
+        <meta property="og:image" content={categoryImages[post.category]} />
+        <meta property="og:url" content={`https://creatorhub.com/blog/${slug}`} />
+        <meta property="og:site_name" content="CreatorHub" />
+        <meta property="article:published_time" content={post.date} />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.metaDescription} />
+        <meta name="twitter:image" content={categoryImages[post.category]} />
+        
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
