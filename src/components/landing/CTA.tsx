@@ -157,10 +157,26 @@ const CTA = () => {
           </div>
           
           {/* Trust badges */}
-          <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <span>🔒 SSL Secured</span>
-            <span>💳 All cards accepted</span>
-            <span>✓ Money-back guarantee</span>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <span>🔒 SSL Secured</span>
+              <span>✓ Instant Access</span>
+            </div>
+            {/* Payment method icons */}
+            <div className="flex items-center justify-center gap-3">
+              <div className="px-3 py-1.5 rounded bg-card border border-border text-xs font-bold text-foreground">
+                VISA
+              </div>
+              <div className="px-3 py-1.5 rounded bg-card border border-border text-xs font-bold text-foreground">
+                <span className="text-destructive">●</span><span className="text-amber-500">●</span> Mastercard
+              </div>
+              <div className="px-3 py-1.5 rounded bg-card border border-border text-xs font-bold text-amber-500">
+                ₿ Bitcoin
+              </div>
+              <div className="px-3 py-1.5 rounded bg-card border border-border text-xs font-bold text-foreground">
+                PayPal
+              </div>
+            </div>
           </div>
         </div>
       </div>
