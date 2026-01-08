@@ -27,6 +27,27 @@ const blogPosts = [
     date: "2025-01-06",
     category: "Insights",
   },
+  {
+    slug: "telegram-viral-channels-trending",
+    title: "Top Telegram Viral Channels Going Trending in 2025",
+    excerpt: "Find the most viral Telegram channels with trending content. These channels are blowing up with millions of subscribers.",
+    date: "2025-01-05",
+    category: "Trending",
+  },
+  {
+    slug: "exclusive-telegram-communities-join",
+    title: "Exclusive Telegram Communities Worth Joining",
+    excerpt: "Discover private and exclusive Telegram communities offering unique content, networking, and insider access.",
+    date: "2025-01-04",
+    category: "Communities",
+  },
+  {
+    slug: "telegram-private-channels-guide",
+    title: "How to Find Private Telegram Channels in 2025",
+    excerpt: "Complete guide to discovering and joining private Telegram channels with exclusive members-only content.",
+    date: "2025-01-03",
+    category: "Guides",
+  },
 ];
 
 const Blog = () => {
