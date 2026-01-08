@@ -1,9 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { Play, Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+
+const Particle = ({ delay, duration, size, left, initialTop }: { 
+  delay: number; 
+  duration: number; 
+  size: number; 
+  left: number;
+  initialTop: number;
+}) => (
+  <div
+    className="absolute rounded-full bg-primary/20 pointer-events-none"
+    style={{
+      width: size,
+      height: size,
+      left: `${left}%`,
+      top: `${initialTop}%`,
+      animation: `float-up ${duration}s ease-in-out ${delay}s infinite`,
+    }}
+  />
+);
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+
+  const particles = useMemo(() => 
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      delay: Math.random() * 5,
+      duration: 8 + Math.random() * 6,
+      size: 4 + Math.random() * 8,
+      left: Math.random() * 100,
+      initialTop: 100 + Math.random() * 20,
+    })), []
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +71,11 @@ const Hero = () => {
         className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-secondary/10 rounded-full blur-2xl"
         style={{ transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.25}px)` }}
       />
+      
+      {/* Floating particles */}
+      {particles.map((particle) => (
+        <Particle key={particle.id} {...particle} />
+      ))}
       
       <div 
         className="relative z-10 container mx-auto px-4 text-center"
