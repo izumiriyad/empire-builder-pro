@@ -9,6 +9,15 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { blogPosts, defaultAuthor } from "@/data/blogData";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
 import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
@@ -52,10 +61,12 @@ const niches = [
   { id: "travel", label: "Travel" },
 ];
 
+const POSTS_PER_PAGE = 9;
+
 const Blog = () => {
   const [activeNiche, setActiveNiche] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [currentPage, setCurrentPage] = useState(1);
   // Get featured posts (first 2 posts as featured for demo, or those marked as featured)
   const featuredPosts = useMemo(() => {
     const featured = blogPosts.filter(post => post.featured);
@@ -87,7 +98,39 @@ const Blog = () => {
     return posts;
   }, [activeNiche, searchQuery]);
 
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [activeNiche, searchQuery]);
+
   const showFeatured = activeNiche === "all" && !searchQuery.trim();
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages: (number | 'ellipsis')[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push('ellipsis');
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
 
   return (
     <>
@@ -224,7 +267,7 @@ const Blog = () => {
             
             {/* Blog Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {filteredPosts.map((post) => (
+              {paginatedPosts.map((post) => (
                 <Link key={post.slug} to={`/blog/${post.slug}`}>
                   <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer overflow-hidden">
                     {/* Featured Image */}
@@ -276,6 +319,48 @@ const Blog = () => {
                 </Link>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-10 max-w-6xl mx-auto">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                    
+                    {getPageNumbers().map((page, index) => (
+                      <PaginationItem key={index}>
+                        {page === 'ellipsis' ? (
+                          <PaginationEllipsis />
+                        ) : (
+                          <PaginationLink
+                            onClick={() => handlePageChange(page)}
+                            isActive={currentPage === page}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        )}
+                      </PaginationItem>
+                    ))}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+                <p className="text-center text-sm text-muted-foreground mt-4">
+                  Showing {startIndex + 1}-{Math.min(startIndex + POSTS_PER_PAGE, filteredPosts.length)} of {filteredPosts.length} posts
+                </p>
+              </div>
+            )}
 
             {/* No results message */}
             {filteredPosts.length === 0 && (
