@@ -72,6 +72,14 @@ const Hero = () => {
         >
           <source src={heroBackground} type="video/mp4" />
         </video>
+        
+        {/* Vignette overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%)'
+          }}
+        />
       </div>
       
       {/* Animated film grain overlay with scroll fade */}
