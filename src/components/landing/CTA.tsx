@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Check, Zap } from "lucide-react";
+import { Check, Zap, UserCheck } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const benefits = [
   "Lifetime access – pay once, enjoy forever",
@@ -9,7 +10,30 @@ const benefits = [
   "Special requests available",
 ];
 
+const recentJoins = [
+  { name: "John", location: "NYC" },
+  { name: "Mike", location: "London" },
+  { name: "Carlos", location: "Miami" },
+  { name: "Alex", location: "Toronto" },
+  { name: "James", location: "Sydney" },
+  { name: "David", location: "Berlin" },
+];
+
 const CTA = () => {
+  const [currentJoin, setCurrentJoin] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setCurrentJoin((prev) => (prev + 1) % recentJoins.length);
+        setIsVisible(true);
+      }, 300);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="pricing" className="py-24 bg-gradient-to-b from-secondary/30 to-background">
       <div className="container mx-auto px-4">
@@ -78,6 +102,19 @@ const CTA = () => {
             <p className="text-xs text-muted-foreground mt-4">
               Secure payment • Instant access • Cancel anytime
             </p>
+          </div>
+
+          {/* Social proof notification */}
+          <div 
+            className={`flex items-center gap-2 justify-center mb-6 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border">
+              <UserCheck className="w-4 h-4 text-primary" />
+              <span className="text-sm text-foreground">
+                <span className="font-medium">{recentJoins[currentJoin].name}</span> from {recentJoins[currentJoin].location} just joined
+              </span>
+              <span className="text-xs text-muted-foreground">• 2m ago</span>
+            </div>
           </div>
           
           {/* Trust badges */}
