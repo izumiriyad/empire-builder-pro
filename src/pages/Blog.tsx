@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Calendar, Search, X, Star, Clock } from "lucide-react";
+import { ArrowRight, Calendar, Search, X, Star, Clock, ArrowUpDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -18,6 +18,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
 import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
@@ -63,10 +70,19 @@ const niches = [
 
 const POSTS_PER_PAGE = 9;
 
+type SortOption = "newest" | "oldest" | "alphabetical";
+
+const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "newest", label: "Newest First" },
+  { value: "oldest", label: "Oldest First" },
+  { value: "alphabetical", label: "A-Z" },
+];
+
 const Blog = () => {
   const [activeNiche, setActiveNiche] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState<SortOption>("newest");
   // Get featured posts (first 2 posts as featured for demo, or those marked as featured)
   const featuredPosts = useMemo(() => {
     const featured = blogPosts.filter(post => post.featured);
@@ -74,7 +90,7 @@ const Blog = () => {
   }, []);
 
   const filteredPosts = useMemo(() => {
-    let posts = blogPosts;
+    let posts = [...blogPosts];
     
     // Filter by niche
     if (activeNiche !== "all") {
@@ -94,14 +110,27 @@ const Blog = () => {
         post.category.toLowerCase().includes(query)
       );
     }
+
+    // Sort posts
+    switch (sortBy) {
+      case "newest":
+        posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        break;
+      case "oldest":
+        posts.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        break;
+      case "alphabetical":
+        posts.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+    }
     
     return posts;
-  }, [activeNiche, searchQuery]);
+  }, [activeNiche, searchQuery, sortBy]);
 
   // Reset to page 1 when filters change
   useMemo(() => {
     setCurrentPage(1);
-  }, [activeNiche, searchQuery]);
+  }, [activeNiche, searchQuery, sortBy]);
 
   const showFeatured = activeNiche === "all" && !searchQuery.trim();
 
@@ -183,9 +212,9 @@ const Blog = () => {
               </div>
             </div>
 
-            {/* Category Filter */}
+            {/* Category Filter & Sort */}
             <div className="mb-10 max-w-6xl mx-auto">
-              <div className="flex flex-wrap gap-2 justify-center">
+              <div className="flex flex-wrap gap-2 justify-center mb-4">
                 {niches.map((niche) => (
                   <button
                     key={niche.id}
@@ -199,6 +228,23 @@ const Blog = () => {
                     {niche.label}
                   </button>
                 ))}
+              </div>
+              
+              {/* Sort Dropdown */}
+              <div className="flex justify-center">
+                <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
+                  <SelectTrigger className="w-[180px]">
+                    <ArrowUpDown className="w-4 h-4 mr-2" />
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sortOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
