@@ -38,10 +38,15 @@ const CTA = () => {
             </div>
             
             <div className="text-sm text-muted-foreground mb-2">Lifetime Access</div>
-            <div className="flex items-baseline justify-center gap-2 mb-6">
-              <span className="text-2xl text-muted-foreground line-through">$49</span>
-              <span className="text-5xl font-bold text-foreground">$19</span>
-              <span className="text-muted-foreground">one-time</span>
+            <div className="flex flex-col items-center gap-2 mb-6">
+              <div className="flex items-baseline justify-center gap-2">
+                <span className="text-2xl text-muted-foreground line-through">$49</span>
+                <span className="text-5xl font-bold text-foreground">$19</span>
+                <span className="text-muted-foreground">one-time</span>
+              </div>
+              <span className="inline-flex px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                Save 61%
+              </span>
             </div>
             
             {/* Benefits list */}
