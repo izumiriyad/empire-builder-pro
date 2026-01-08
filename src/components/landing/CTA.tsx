@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Check, Zap } from "lucide-react";
 
 const benefits = [
-  "Instant access to 500+ videos",
-  "Weekly exclusive drops",
-  "Behind-the-scenes content",
+  "Lifetime access – pay once, enjoy forever",
+  "Daily new exclusive drops",
+  "No recurring fees or hidden costs",
   "Direct messaging access",
-  "Cancel anytime",
+  "Special requests available",
 ];
 
 const CTA = () => {
