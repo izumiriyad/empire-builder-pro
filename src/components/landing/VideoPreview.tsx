@@ -1,5 +1,6 @@
 import { Play, Lock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const videos = [
   {
@@ -41,9 +42,19 @@ const videos = [
 ];
 
 const VideoPreview = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
-    <section id="content" className="py-24 bg-secondary/30">
-      <div className="container mx-auto px-4">
+    <section 
+      id="content" 
+      className="py-24 bg-secondary/30"
+      ref={ref as React.RefObject<HTMLElement>}
+    >
+      <div 
+        className={`container mx-auto px-4 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
@@ -59,7 +70,10 @@ const VideoPreview = () => {
           {videos.map((video, index) => (
             <Card 
               key={index} 
-              className="group overflow-hidden bg-card border-border hover:border-primary/50 transition-all duration-300 cursor-pointer"
+              className={`group overflow-hidden bg-card border-border hover:border-primary/50 transition-all duration-500 cursor-pointer ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
             >
               <CardContent className="p-0">
                 <div className="relative aspect-video overflow-hidden">
