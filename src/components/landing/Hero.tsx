@@ -4,21 +4,24 @@ import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import VideoModal from "./VideoModal";
 import heroBackground from "@/assets/hero-background.mp4";
-const Particle = ({ delay, duration, size, left, initialTop }: { 
+const BokehParticle = ({ delay, duration, size, left, top, opacity }: { 
   delay: number; 
   duration: number; 
   size: number; 
   left: number;
-  initialTop: number;
+  top: number;
+  opacity: number;
 }) => (
   <div
-    className="absolute rounded-full bg-primary/20 pointer-events-none"
+    className="absolute rounded-full pointer-events-none"
     style={{
       width: size,
       height: size,
       left: `${left}%`,
-      top: `${initialTop}%`,
-      animation: `float-up ${duration}s ease-in-out ${delay}s infinite`,
+      top: `${top}%`,
+      background: `radial-gradient(circle, hsl(var(--primary) / ${opacity}) 0%, transparent 70%)`,
+      filter: `blur(${size / 8}px)`,
+      animation: `bokeh-float ${duration}s ease-in-out ${delay}s infinite`,
     }}
   />
 );
@@ -26,14 +29,15 @@ const Particle = ({ delay, duration, size, left, initialTop }: {
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
 
-  const particles = useMemo(() => 
-    Array.from({ length: 20 }, (_, i) => ({
+  const bokehParticles = useMemo(() => 
+    Array.from({ length: 15 }, (_, i) => ({
       id: i,
-      delay: Math.random() * 5,
-      duration: 8 + Math.random() * 6,
-      size: 4 + Math.random() * 8,
+      delay: Math.random() * 8,
+      duration: 12 + Math.random() * 10,
+      size: 40 + Math.random() * 120,
       left: Math.random() * 100,
-      initialTop: 100 + Math.random() * 20,
+      top: Math.random() * 100,
+      opacity: 0.1 + Math.random() * 0.2,
     })), []
   );
 
@@ -119,10 +123,12 @@ const Hero = () => {
         style={{ transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.25}px)` }}
       />
       
-      {/* Floating particles */}
-      {particles.map((particle) => (
-        <Particle key={particle.id} {...particle} />
-      ))}
+      {/* Floating bokeh particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {bokehParticles.map((particle) => (
+          <BokehParticle key={particle.id} {...particle} />
+        ))}
+      </div>
       
       <div 
         className="relative z-10 container mx-auto px-4 text-center"
