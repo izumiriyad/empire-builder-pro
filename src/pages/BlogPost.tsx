@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check, List } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check, List, ArrowUp } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -39,6 +39,7 @@ const BlogPost = () => {
   const [copied, setCopied] = useState(false);
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeHeading, setActiveHeading] = useState<string>("");
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const BlogPost = () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setReadProgress(Math.min(100, Math.max(0, progress)));
+      setShowBackToTop(scrollTop > 400);
     };
 
     window.addEventListener("scroll", updateProgress);
@@ -419,6 +421,17 @@ const BlogPost = () => {
         </main>
         
         <Footer />
+
+        {/* Back to Top Button */}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:scale-110 ${
+            showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
       </div>
     </>
   );
