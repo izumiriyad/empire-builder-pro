@@ -126,14 +126,16 @@ const Hero = () => {
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-4xl p-0 bg-background border-border overflow-hidden">
-              <div className="relative aspect-video w-full">
-                <iframe
+              <div className="relative aspect-video w-full bg-black">
+                <video
                   className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                  title="Preview Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                  src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"
+                  controls
+                  autoPlay
+                  playsInline
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </DialogContent>
           </Dialog>
