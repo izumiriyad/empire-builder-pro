@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar, Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { blogPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -51,14 +52,32 @@ const niches = [
 
 const Blog = () => {
   const [activeNiche, setActiveNiche] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPosts = useMemo(() => {
-    if (activeNiche === "all") return blogPosts;
-    return blogPosts.filter(post => 
-      post.slug.includes(activeNiche) || 
-      post.keywords.toLowerCase().includes(activeNiche)
-    );
-  }, [activeNiche]);
+    let posts = blogPosts;
+    
+    // Filter by niche
+    if (activeNiche !== "all") {
+      posts = posts.filter(post => 
+        post.slug.includes(activeNiche) || 
+        post.keywords.toLowerCase().includes(activeNiche)
+      );
+    }
+    
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      posts = posts.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.keywords.toLowerCase().includes(query) ||
+        post.category.toLowerCase().includes(query)
+      );
+    }
+    
+    return posts;
+  }, [activeNiche, searchQuery]);
 
   return (
     <>
@@ -78,7 +97,7 @@ const Blog = () => {
         <main className="pt-24 pb-16">
           <div className="container mx-auto px-4">
             {/* Header */}
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                 Best Telegram Channels & Groups
               </h1>
@@ -86,6 +105,29 @@ const Blog = () => {
                 Find the best Telegram channels for crypto, airdrops, online earning, AI tools, and more. 
                 Curated lists of free and active communities.
               </p>
+            </div>
+
+            {/* Search Bar */}
+            <div className="max-w-md mx-auto mb-8">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search topics, categories..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-10"
+                  maxLength={100}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Category Filter */}
