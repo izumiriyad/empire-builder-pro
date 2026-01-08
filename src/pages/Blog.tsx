@@ -5,6 +5,20 @@ import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Calendar } from "lucide-react";
 
+import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
+import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
+import insightsThumbnail from "@/assets/blog/insights-thumbnail.jpg";
+import trendingThumbnail from "@/assets/blog/trending-thumbnail.jpg";
+import communitiesThumbnail from "@/assets/blog/communities-thumbnail.jpg";
+
+const categoryImages: Record<string, string> = {
+  Guides: guidesThumbnail,
+  Lists: listsThumbnail,
+  Insights: insightsThumbnail,
+  Trending: trendingThumbnail,
+  Communities: communitiesThumbnail,
+};
+
 const blogPosts = [
   {
     slug: "best-telegram-channels-exclusive-content",
@@ -82,7 +96,15 @@ const Blog = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {blogPosts.map((post) => (
                 <Link key={post.slug} to={`/blog/${post.slug}`}>
-                  <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer">
+                  <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer overflow-hidden">
+                    {/* Featured Image */}
+                    <div className="aspect-video overflow-hidden">
+                      <img 
+                        src={categoryImages[post.category]} 
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
