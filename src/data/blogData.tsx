@@ -10,6 +10,7 @@ export interface BlogPost {
   readTime: string;
   category: string;
   content: React.ReactNode;
+  featured?: boolean;
 }
 
 // Helper function to get related posts by category and keywords
