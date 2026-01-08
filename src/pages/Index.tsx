@@ -8,6 +8,7 @@ import Testimonials from "@/components/landing/Testimonials";
 import FAQ from "@/components/landing/FAQ";
 import CTA from "@/components/landing/CTA";
 import Footer from "@/components/landing/Footer";
+import StickyJoinButton from "@/components/landing/StickyJoinButton";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
       <FAQ />
       <CTA />
       <Footer />
+      <StickyJoinButton />
     </div>
   );
 };
