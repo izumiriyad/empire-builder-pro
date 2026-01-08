@@ -49,8 +49,10 @@ const CTA = () => {
               ))}
             </ul>
             
-            <Button size="lg" className="w-full text-lg py-6">
-              Join Now
+            <Button size="lg" className="w-full text-lg py-6" asChild>
+              <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+                Join Now
+              </a>
             </Button>
             
             <p className="text-xs text-muted-foreground mt-4">
