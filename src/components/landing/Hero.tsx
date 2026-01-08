@@ -67,8 +67,9 @@ const Hero = () => {
         <source src={heroBackground} type="video/mp4" />
       </video>
       
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-background/70" />
+      {/* Dark overlay with gradient fade for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
       
       {/* Animated circles with parallax */}
       <div 
