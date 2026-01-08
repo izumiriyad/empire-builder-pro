@@ -118,24 +118,24 @@ const Hero = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
       
-      {/* Animated circles with parallax */}
+      {/* Animated circles with scroll + mouse parallax */}
       <div 
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse"
-        style={{ transform: `translate(${scrollY * 0.05}px, ${scrollY * 0.15}px)` }}
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse transition-transform duration-300 ease-out"
+        style={{ transform: `translate(${scrollY * 0.05 + mousePosition.x * 0.03}px, ${scrollY * 0.15 + mousePosition.y * 0.03}px)` }}
       />
       <div 
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"
-        style={{ transform: `translate(${scrollY * -0.08}px, ${scrollY * 0.2}px)` }}
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000 transition-transform duration-300 ease-out"
+        style={{ transform: `translate(${scrollY * -0.08 + mousePosition.x * -0.04}px, ${scrollY * 0.2 + mousePosition.y * 0.04}px)` }}
       />
       
       {/* Additional parallax decorative elements */}
       <div 
-        className="absolute top-1/3 right-1/3 w-64 h-64 bg-primary/3 rounded-full blur-2xl"
-        style={{ transform: `translate(${scrollY * -0.12}px, ${scrollY * 0.1}px)` }}
+        className="absolute top-1/3 right-1/3 w-64 h-64 bg-primary/3 rounded-full blur-2xl transition-transform duration-300 ease-out"
+        style={{ transform: `translate(${scrollY * -0.12 + mousePosition.x * 0.05}px, ${scrollY * 0.1 + mousePosition.y * -0.03}px)` }}
       />
       <div 
-        className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-secondary/10 rounded-full blur-2xl"
-        style={{ transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.25}px)` }}
+        className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-secondary/10 rounded-full blur-2xl transition-transform duration-300 ease-out"
+        style={{ transform: `translate(${scrollY * 0.1 + mousePosition.x * -0.02}px, ${scrollY * 0.25 + mousePosition.y * 0.05}px)` }}
       />
       
       {/* Floating bokeh particles with mouse parallax */}
@@ -151,8 +151,11 @@ const Hero = () => {
       </div>
       
       <div 
-        className="relative z-10 container mx-auto px-4 text-center"
-        style={{ transform: `translateY(${scrollY * 0.3}px)`, opacity: Math.max(0, 1 - scrollY / 600) }}
+        className="relative z-10 container mx-auto px-4 text-center transition-transform duration-300 ease-out"
+        style={{ 
+          transform: `translate(${mousePosition.x * -0.015}px, ${scrollY * 0.3 + mousePosition.y * -0.015}px)`, 
+          opacity: Math.max(0, 1 - scrollY / 600) 
+        }}
       >
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
