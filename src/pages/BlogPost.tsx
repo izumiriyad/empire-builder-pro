@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2 } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -36,6 +36,7 @@ const BlogPost = () => {
   const relatedPosts = slug ? getRelatedPosts(slug, blogPosts, 3) : [];
   const [readProgress, setReadProgress] = useState(0);
   const [calculatedReadTime, setCalculatedReadTime] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -270,6 +271,17 @@ const BlogPost = () => {
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(`https://leakempire.io/blog/${slug}`);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  aria-label="Copy link"
+                >
+                  {copied ? <Check className="w-4 h-4 text-green-500" /> : <Link2 className="w-4 h-4" />}
+                </button>
               </div>
             </header>
             
