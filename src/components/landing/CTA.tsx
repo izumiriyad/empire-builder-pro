@@ -90,7 +90,12 @@ const CTA = () => {
             <div className="grid grid-cols-3 bg-secondary/50">
               <div className="p-4 text-left font-semibold text-foreground">Features</div>
               <div className="p-4 text-center font-semibold text-muted-foreground">Free Channel</div>
-              <div className="p-4 text-center font-semibold text-primary">Premium Vault</div>
+              <div className="p-4 text-center font-semibold text-primary relative">
+                <span className="absolute -top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[10px] font-bold bg-primary text-primary-foreground rounded-full">
+                  Most Popular
+                </span>
+                Premium Vault
+              </div>
             </div>
             {comparisonFeatures.map((item, index) => (
               <div 
