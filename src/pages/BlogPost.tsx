@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/landing/Navbar";
@@ -35,6 +35,8 @@ const BlogPost = () => {
   const post = slug ? blogContentMap[slug] : null;
   const relatedPosts = slug ? getRelatedPosts(slug, blogPosts, 3) : [];
   const [readProgress, setReadProgress] = useState(0);
+  const [calculatedReadTime, setCalculatedReadTime] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -48,6 +50,17 @@ const BlogPost = () => {
     updateProgress();
     return () => window.removeEventListener("scroll", updateProgress);
   }, []);
+
+  // Calculate reading time based on word count
+  useEffect(() => {
+    if (contentRef.current) {
+      const text = contentRef.current.textContent || "";
+      const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+      const wordsPerMinute = 200; // Average reading speed
+      const minutes = Math.ceil(wordCount / wordsPerMinute);
+      setCalculatedReadTime(`${minutes} min read`);
+    }
+  }, [post]);
   
   if (!post) {
     return (
@@ -220,13 +233,13 @@ const BlogPost = () => {
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
-                  {post.readTime}
+                  {calculatedReadTime || post.readTime}
                 </span>
               </div>
             </header>
             
             {/* Content */}
-            <div className="prose prose-lg max-w-none">
+            <div ref={contentRef} className="prose prose-lg max-w-none">
               {post.content}
             </div>
             
