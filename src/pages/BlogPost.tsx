@@ -5,12 +5,27 @@ import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Calendar, Clock } from "lucide-react";
 
+import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
+import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
+import insightsThumbnail from "@/assets/blog/insights-thumbnail.jpg";
+import trendingThumbnail from "@/assets/blog/trending-thumbnail.jpg";
+import communitiesThumbnail from "@/assets/blog/communities-thumbnail.jpg";
+
+const categoryImages: Record<string, string> = {
+  Guides: guidesThumbnail,
+  Lists: listsThumbnail,
+  Insights: insightsThumbnail,
+  Trending: trendingThumbnail,
+  Communities: communitiesThumbnail,
+};
+
 const blogContent: Record<string, {
   title: string;
   metaDescription: string;
   keywords: string;
   date: string;
   readTime: string;
+  category: string;
   content: React.ReactNode;
 }> = {
   "best-telegram-channels-exclusive-content": {
@@ -19,6 +34,7 @@ const blogContent: Record<string, {
     keywords: "best telegram channels, exclusive content telegram, premium telegram channels, telegram vip",
     date: "2025-01-08",
     readTime: "5 min read",
+    category: "Guides",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -55,6 +71,7 @@ const blogContent: Record<string, {
     keywords: "free telegram groups, free premium telegram, telegram groups free, best free telegram",
     date: "2025-01-07",
     readTime: "4 min read",
+    category: "Lists",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -90,6 +107,7 @@ const blogContent: Record<string, {
     keywords: "telegram for creators, telegram vs patreon, telegram content platform, creator telegram",
     date: "2025-01-06",
     readTime: "6 min read",
+    category: "Insights",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -128,6 +146,7 @@ const blogContent: Record<string, {
     keywords: "telegram viral channels, trending telegram, viral telegram groups, popular telegram channels",
     date: "2025-01-05",
     readTime: "5 min read",
+    category: "Trending",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -164,6 +183,7 @@ const blogContent: Record<string, {
     keywords: "exclusive telegram communities, private telegram groups, telegram vip community, members only telegram",
     date: "2025-01-04",
     readTime: "4 min read",
+    category: "Communities",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -200,6 +220,7 @@ const blogContent: Record<string, {
     keywords: "private telegram channels, find telegram channels, telegram channel search, hidden telegram groups",
     date: "2025-01-03",
     readTime: "6 min read",
+    category: "Guides",
     content: (
       <>
         <p className="text-lg text-muted-foreground mb-6">
@@ -287,6 +308,15 @@ const BlogPost = () => {
               Back to Blog
             </Link>
             
+            {/* Featured Image */}
+            <div className="aspect-video rounded-xl overflow-hidden mb-8">
+              <img 
+                src={categoryImages[post.category]} 
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
             {/* Header */}
             <header className="mb-8">
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -294,6 +324,9 @@ const BlogPost = () => {
               </h1>
               
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                  {post.category}
+                </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(post.date).toLocaleDateString()}
