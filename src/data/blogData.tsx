@@ -12,6 +12,35 @@ export interface BlogPost {
   content: React.ReactNode;
 }
 
+// Helper function to get related posts by category and keywords
+export const getRelatedPosts = (currentSlug: string, posts: BlogPost[], limit: number = 3): BlogPost[] => {
+  const currentPost = posts.find(p => p.slug === currentSlug);
+  if (!currentPost) return [];
+  
+  // Extract niche from slug (e.g., "crypto", "fitness", "music")
+  const currentNiche = currentPost.slug.split("-").slice(-1)[0] || currentPost.slug.split("-").slice(-2)[0];
+  
+  return posts
+    .filter(post => post.slug !== currentSlug)
+    .map(post => {
+      let score = 0;
+      // Same category = high score
+      if (post.category === currentPost.category) score += 2;
+      // Same niche in slug = highest score
+      if (post.slug.includes(currentNiche)) score += 5;
+      // Overlapping keywords
+      const currentKeywords = currentPost.keywords.toLowerCase().split(",").map(k => k.trim());
+      const postKeywords = post.keywords.toLowerCase().split(",").map(k => k.trim());
+      currentKeywords.forEach(kw => {
+        if (postKeywords.some(pk => pk.includes(kw) || kw.includes(pk))) score += 1;
+      });
+      return { post, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.post);
+};
+
 // FAQ component for reuse
 const FAQ = ({ items }: { items: { q: string; a: string }[] }) => (
   <div className="mt-8 mb-8">

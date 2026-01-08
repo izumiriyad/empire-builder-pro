@@ -4,7 +4,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Calendar, Clock } from "lucide-react";
-import { blogContentMap } from "@/data/blogData";
+import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
 import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
@@ -23,6 +23,7 @@ const categoryImages: Record<string, string> = {
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? blogContentMap[slug] : null;
+  const relatedPosts = slug ? getRelatedPosts(slug, blogPosts, 3) : [];
   
   if (!post) {
     return (
@@ -170,6 +171,43 @@ const BlogPost = () => {
                 </a>
               </Button>
             </div>
+
+            {/* Related Posts Section */}
+            {relatedPosts.length > 0 && (
+              <section className="mt-16">
+                <h2 className="text-2xl font-bold text-foreground mb-6">Related Articles</h2>
+                <div className="grid gap-6 md:grid-cols-3">
+                  {relatedPosts.map((relatedPost) => (
+                    <Link 
+                      key={relatedPost.slug} 
+                      to={`/blog/${relatedPost.slug}`}
+                      className="group block"
+                    >
+                      <article className="bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-colors">
+                        <div className="aspect-video overflow-hidden">
+                          <img 
+                            src={categoryImages[relatedPost.category]} 
+                            alt={relatedPost.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                            {relatedPost.category}
+                          </span>
+                          <h3 className="mt-2 font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                            {relatedPost.title}
+                          </h3>
+                          <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                            {relatedPost.excerpt}
+                          </p>
+                        </div>
+                      </article>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </article>
         </main>
         
