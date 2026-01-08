@@ -36,6 +36,7 @@ const BlogPost = () => {
   const relatedPosts = slug ? getRelatedPosts(slug, blogPosts, 3) : [];
   const [readProgress, setReadProgress] = useState(0);
   const [calculatedReadTime, setCalculatedReadTime] = useState<string | null>(null);
+  const [totalMinutes, setTotalMinutes] = useState(0);
   const [copied, setCopied] = useState(false);
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeHeading, setActiveHeading] = useState<string>("");
@@ -63,6 +64,7 @@ const BlogPost = () => {
       const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
       const wordsPerMinute = 200;
       const minutes = Math.ceil(wordCount / wordsPerMinute);
+      setTotalMinutes(minutes);
       setCalculatedReadTime(`${minutes} min read`);
 
       // Extract headings for TOC
@@ -213,8 +215,15 @@ const BlogPost = () => {
       
       <div className="min-h-screen bg-background">
         {/* Reading Progress Bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted">
-          <Progress value={readProgress} className="h-1 rounded-none" />
+        <div className="fixed top-0 left-0 right-0 z-50">
+          <div className="h-1 bg-muted">
+            <Progress value={readProgress} className="h-1 rounded-none" />
+          </div>
+          {readProgress > 0 && readProgress < 100 && totalMinutes > 0 && (
+            <div className="absolute right-4 top-2 bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+              {Math.ceil(totalMinutes * (1 - readProgress / 100))} min left
+            </div>
+          )}
         </div>
         
         <Navbar />
