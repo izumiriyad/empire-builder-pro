@@ -95,7 +95,7 @@ const CTA = () => {
             {comparisonFeatures.map((item, index) => (
               <div 
                 key={index} 
-                className={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-background' : 'bg-secondary/20'}`}
+                className={`grid grid-cols-3 transition-all duration-200 hover:bg-primary/5 hover:scale-[1.01] cursor-default ${index % 2 === 0 ? 'bg-background' : 'bg-secondary/20'}`}
               >
                 <div className="p-4 text-left text-sm text-foreground">{item.feature}</div>
                 <div className="p-4 flex justify-center">
