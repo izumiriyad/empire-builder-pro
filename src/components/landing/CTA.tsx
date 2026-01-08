@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, Zap, UserCheck, Clock } from "lucide-react";
+import { Check, Zap, UserCheck, Clock, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const getTimeUntilMidnight = () => {
@@ -133,9 +133,14 @@ const CTA = () => {
               </Button>
             </div>
             
-            <p className="text-xs text-muted-foreground mt-4">
-              Secure payment • Instant access • Cancel anytime
-            </p>
+            {/* Money-back guarantee badge */}
+            <div className="flex items-center justify-center gap-2 mt-6 p-3 rounded-lg bg-primary/5 border border-primary/10">
+              <ShieldCheck className="w-5 h-5 text-primary" />
+              <div className="text-left">
+                <span className="text-sm font-semibold text-foreground">30-Day Money-Back Guarantee</span>
+                <p className="text-xs text-muted-foreground">Not satisfied? Get a full refund, no questions asked.</p>
+              </div>
+            </div>
           </div>
 
           {/* Social proof notification */}
