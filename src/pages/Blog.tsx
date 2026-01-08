@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Calendar, Search, X } from "lucide-react";
+import { ArrowRight, Calendar, Search, X, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { blogPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -54,6 +55,12 @@ const Blog = () => {
   const [activeNiche, setActiveNiche] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Get featured posts (first 2 posts as featured for demo, or those marked as featured)
+  const featuredPosts = useMemo(() => {
+    const featured = blogPosts.filter(post => post.featured);
+    return featured.length > 0 ? featured.slice(0, 2) : blogPosts.slice(0, 2);
+  }, []);
+
   const filteredPosts = useMemo(() => {
     let posts = blogPosts;
     
@@ -78,6 +85,8 @@ const Blog = () => {
     
     return posts;
   }, [activeNiche, searchQuery]);
+
+  const showFeatured = activeNiche === "all" && !searchQuery.trim();
 
   return (
     <>
@@ -148,6 +157,56 @@ const Blog = () => {
                 ))}
               </div>
             </div>
+
+            {/* Featured Posts Section */}
+            {showFeatured && featuredPosts.length > 0 && (
+              <div className="mb-12 max-w-6xl mx-auto">
+                <div className="flex items-center gap-2 mb-6">
+                  <Star className="w-5 h-5 text-primary fill-primary" />
+                  <h2 className="text-xl font-semibold text-foreground">Featured Posts</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {featuredPosts.map((post) => (
+                    <Link key={post.slug} to={`/blog/${post.slug}`}>
+                      <Card className="h-full bg-card border-primary/30 hover:border-primary transition-all duration-300 group cursor-pointer overflow-hidden relative">
+                        <Badge className="absolute top-4 right-4 z-10 bg-primary text-primary-foreground">
+                          <Star className="w-3 h-3 mr-1 fill-current" />
+                          Featured
+                        </Badge>
+                        <div className="aspect-video overflow-hidden">
+                          <img 
+                            src={categoryImages[post.category]} 
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                              {post.category}
+                            </span>
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Calendar className="w-3 h-3" />
+                              {new Date(post.date).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                            {post.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center gap-2 text-primary text-sm font-medium">
+                            Read More
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {/* Blog Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
