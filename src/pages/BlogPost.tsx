@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check, List, ArrowUp } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check, List, ArrowUp, ArrowRight, Sparkles } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -292,7 +292,7 @@ const BlogPost = () => {
             </Breadcrumb>
             
             {/* Featured Image */}
-            <div className="aspect-video rounded-xl overflow-hidden mb-8">
+            <div className="aspect-video rounded-2xl overflow-hidden mb-8 ring-1 ring-border">
               <img 
                 src={categoryImages[post.category]} 
                 alt={post.title}
@@ -301,28 +301,31 @@ const BlogPost = () => {
             </div>
             
             {/* Header */}
-            <header className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <header className="mb-10">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">
+                  {post.category}
+                </span>
+              </div>
+              
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
                 {post.title}
               </h1>
               
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
-                  {post.category}
-                </span>
-                <span className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground pb-6 border-b border-border">
+                <span className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  {new Date(post.date).toLocaleDateString()}
+                  {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </span>
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   {calculatedReadTime || post.readTime}
                 </span>
               </div>
 
               {/* Social Share Buttons */}
-              <div className="flex items-center gap-3 mt-4">
-                <span className="flex items-center gap-1 text-muted-foreground">
+              <div className="flex items-center gap-3 mt-6">
+                <span className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Share2 className="w-4 h-4" />
                   Share:
                 </span>
@@ -330,7 +333,7 @@ const BlogPost = () => {
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                   aria-label="Share on Twitter"
                 >
                   <Twitter className="w-4 h-4" />
@@ -339,7 +342,7 @@ const BlogPost = () => {
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                   aria-label="Share on Facebook"
                 >
                   <Facebook className="w-4 h-4" />
@@ -348,7 +351,7 @@ const BlogPost = () => {
                   href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                   aria-label="Share on LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -359,7 +362,7 @@ const BlogPost = () => {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
-                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
                   aria-label="Copy link"
                 >
                   {copied ? <Check className="w-4 h-4 text-green-500" /> : <Link2 className="w-4 h-4" />}
@@ -368,31 +371,43 @@ const BlogPost = () => {
             </header>
             
             {/* Content */}
-            <div ref={contentRef} className="prose prose-lg max-w-none">
+            <div ref={contentRef} className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80">
               {post.content}
             </div>
             
             {/* CTA Box */}
-            <div className="mt-12 p-8 bg-primary/5 border border-primary/20 rounded-2xl text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-3">
-                Ready to Join?
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                If you want regular updates without noise, joining a few quality Telegram channels is a good idea.
-                Get instant access to exclusive content now.
-              </p>
-              <Button size="lg" className="gap-2" asChild>
-                <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
-                  Join Telegram Channel
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </Button>
+            <div className="mt-16 relative overflow-hidden p-8 md:p-10 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-3xl text-center">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+              
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
+                  <ExternalLink className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+                  Ready to Join?
+                </h3>
+                <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                  Get instant access to exclusive content, premium resources, and active community discussions.
+                </p>
+                <Button size="lg" className="gap-2 shadow-lg shadow-primary/25" asChild>
+                  <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+                    Join Telegram Channel
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </Button>
+              </div>
             </div>
 
             {/* Related Posts Section */}
             {relatedPosts.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Related Articles</h2>
+              <section className="mt-20">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <ArrowRight className="w-5 h-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-foreground">Related Articles</h2>
+                </div>
                 <div className="grid gap-6 md:grid-cols-3">
                   {relatedPosts.map((relatedPost) => (
                     <Link 
@@ -400,24 +415,30 @@ const BlogPost = () => {
                       to={`/blog/${relatedPost.slug}`}
                       className="group block"
                     >
-                      <article className="bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-colors">
-                        <div className="aspect-video overflow-hidden">
+                      <article className="h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
+                        <div className="aspect-video overflow-hidden relative">
                           <img 
                             src={categoryImages[relatedPost.category]} 
                             alt={relatedPost.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy"
                           />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <div className="p-4">
-                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                        <div className="p-5">
+                          <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
                             {relatedPost.category}
                           </span>
-                          <h3 className="mt-2 font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                          <h3 className="mt-3 font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                             {relatedPost.title}
                           </h3>
-                          <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                          <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
                             {relatedPost.excerpt}
                           </p>
+                          <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
+                            Read More
+                            <ArrowRight className="w-4 h-4" />
+                          </div>
                         </div>
                       </article>
                     </Link>
