@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2, Link2, Check, List } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -37,6 +37,8 @@ const BlogPost = () => {
   const [readProgress, setReadProgress] = useState(0);
   const [calculatedReadTime, setCalculatedReadTime] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
+  const [activeHeading, setActiveHeading] = useState<string>("");
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,16 +54,50 @@ const BlogPost = () => {
     return () => window.removeEventListener("scroll", updateProgress);
   }, []);
 
-  // Calculate reading time based on word count
+  // Calculate reading time and extract headings
   useEffect(() => {
     if (contentRef.current) {
       const text = contentRef.current.textContent || "";
       const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
-      const wordsPerMinute = 200; // Average reading speed
+      const wordsPerMinute = 200;
       const minutes = Math.ceil(wordCount / wordsPerMinute);
       setCalculatedReadTime(`${minutes} min read`);
+
+      // Extract headings for TOC
+      const headingElements = contentRef.current.querySelectorAll("h2, h3");
+      const extractedHeadings = Array.from(headingElements).map((heading, index) => {
+        const id = `heading-${index}`;
+        heading.id = id;
+        return {
+          id,
+          text: heading.textContent || "",
+          level: heading.tagName === "H2" ? 2 : 3,
+        };
+      });
+      setHeadings(extractedHeadings);
     }
   }, [post]);
+
+  // Track active heading on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!contentRef.current) return;
+      const headingElements = contentRef.current.querySelectorAll("h2, h3");
+      let currentActive = "";
+      
+      headingElements.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top <= 120) {
+          currentActive = heading.id;
+        }
+      });
+      
+      setActiveHeading(currentActive);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [headings]);
   
   if (!post) {
     return (
@@ -182,7 +218,42 @@ const BlogPost = () => {
         <Navbar />
         
         <main className="pt-24 pb-16">
-          <article className="container mx-auto px-4 max-w-3xl">
+          <div className="container mx-auto px-4 flex gap-8">
+            {/* Table of Contents - Desktop Only */}
+            {headings.length > 2 && (
+              <aside className="hidden xl:block w-64 shrink-0">
+                <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-auto">
+                  <div className="flex items-center gap-2 text-sm font-medium text-foreground mb-4">
+                    <List className="w-4 h-4" />
+                    Table of Contents
+                  </div>
+                  <ul className="space-y-2 text-sm border-l border-border pl-4">
+                    {headings.map((heading) => (
+                      <li key={heading.id}>
+                        <a
+                          href={`#${heading.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById(heading.id)?.scrollIntoView({ behavior: "smooth" });
+                          }}
+                          className={`block py-1 transition-colors ${
+                            heading.level === 3 ? "pl-3" : ""
+                          } ${
+                            activeHeading === heading.id
+                              ? "text-primary font-medium"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {heading.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </aside>
+            )}
+
+            <article className="flex-1 max-w-3xl mx-auto">
             {/* Breadcrumb Navigation */}
             <Breadcrumb className="mb-8">
               <BreadcrumbList>
@@ -344,6 +415,7 @@ const BlogPost = () => {
               </section>
             )}
           </article>
+          </div>
         </main>
         
         <Footer />
