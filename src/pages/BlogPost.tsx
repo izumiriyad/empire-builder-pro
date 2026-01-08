@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/landing/Navbar";
@@ -11,6 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Progress } from "@/components/ui/progress";
 import { ExternalLink, Calendar, Clock, Home } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
@@ -32,6 +34,20 @@ const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? blogContentMap[slug] : null;
   const relatedPosts = slug ? getRelatedPosts(slug, blogPosts, 3) : [];
+  const [readProgress, setReadProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setReadProgress(Math.min(100, Math.max(0, progress)));
+    };
+
+    window.addEventListener("scroll", updateProgress);
+    updateProgress();
+    return () => window.removeEventListener("scroll", updateProgress);
+  }, []);
   
   if (!post) {
     return (
@@ -144,6 +160,11 @@ const BlogPost = () => {
       </Helmet>
       
       <div className="min-h-screen bg-background">
+        {/* Reading Progress Bar */}
+        <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted">
+          <Progress value={readProgress} className="h-1 rounded-none" />
+        </div>
+        
         <Navbar />
         
         <main className="pt-24 pb-16">
