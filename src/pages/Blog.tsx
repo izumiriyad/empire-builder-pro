@@ -1,10 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Calendar, Search, X, Star, Clock, ArrowUpDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Calendar, Search, X, Star, Clock, ArrowUpDown, Sparkles, TrendingUp, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -83,6 +84,11 @@ const Blog = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
   // Get featured posts (first 2 posts as featured for demo, or those marked as featured)
   const featuredPosts = useMemo(() => {
     const featured = blogPosts.filter(post => post.featured);
@@ -178,52 +184,85 @@ const Blog = () => {
         
         <main className="pt-24 pb-16">
           <div className="container mx-auto px-4">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            {/* Header with animation */}
+            <div 
+              className={`text-center mb-12 transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">Curated Resources</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
                 Best Telegram Channels & Groups
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                 Find the best Telegram channels for crypto, airdrops, online earning, AI tools, and more. 
                 Curated lists of free and active communities.
               </p>
+              
+              {/* Quick Stats */}
+              <div className="flex flex-wrap justify-center gap-6 text-sm">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span><strong className="text-foreground">{blogPosts.length}+</strong> Articles</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Users className="w-4 h-4 text-primary" />
+                  <span><strong className="text-foreground">{niches.length - 1}</strong> Categories</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Clock className="w-4 h-4 text-primary" />
+                  <span>Updated <strong className="text-foreground">Daily</strong></span>
+                </div>
+              </div>
             </div>
 
-            {/* Search Bar */}
-            <div className="max-w-md mx-auto mb-8">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            {/* Search Bar with animation */}
+            <div 
+              className={`max-w-md mx-auto mb-8 transition-all duration-700 delay-100 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 <Input
                   type="text"
                   placeholder="Search topics, categories..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-10"
+                  className="pl-12 pr-10 py-6 text-base rounded-full border-2 focus:border-primary/50 transition-all"
                   maxLength={100}
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-5 h-5" />
                   </button>
                 )}
               </div>
             </div>
 
-            {/* Category Filter & Sort */}
-            <div className="mb-10 max-w-6xl mx-auto">
-              <div className="flex flex-wrap gap-2 justify-center mb-4">
-                {niches.map((niche) => (
+            {/* Category Filter & Sort with animation */}
+            <div 
+              className={`mb-12 max-w-6xl mx-auto transition-all duration-700 delay-200 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
+                {niches.map((niche, index) => (
                   <button
                     key={niche.id}
                     onClick={() => setActiveNiche(niche.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
                       activeNiche === niche.id
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50"
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                        : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-primary/5"
                     }`}
+                    style={{ animationDelay: `${index * 20}ms` }}
                   >
                     {niche.label}
                   </button>
@@ -233,7 +272,7 @@ const Blog = () => {
               {/* Sort Dropdown */}
               <div className="flex justify-center">
                 <Select value={sortBy} onValueChange={(value: SortOption) => setSortBy(value)}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[180px] rounded-full">
                     <ArrowUpDown className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
@@ -250,16 +289,22 @@ const Blog = () => {
 
             {/* Featured Posts Section */}
             {showFeatured && featuredPosts.length > 0 && (
-              <div className="mb-12 max-w-6xl mx-auto">
-                <div className="flex items-center gap-2 mb-6">
-                  <Star className="w-5 h-5 text-primary fill-primary" />
-                  <h2 className="text-xl font-semibold text-foreground">Featured Posts</h2>
+              <div 
+                className={`mb-16 max-w-6xl mx-auto transition-all duration-700 delay-300 ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-8">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Star className="w-5 h-5 text-primary fill-primary" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-foreground">Featured Posts</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {featuredPosts.map((post) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {featuredPosts.map((post, index) => (
                     <Link key={post.slug} to={`/blog/${post.slug}`}>
-                      <Card className="h-full bg-card border-primary/30 hover:border-primary transition-all duration-300 group cursor-pointer overflow-hidden relative">
-                        <Badge className="absolute top-4 right-4 z-10 bg-primary text-primary-foreground">
+                      <Card className="h-full bg-card border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 group cursor-pointer overflow-hidden relative hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
+                        <Badge className="absolute top-4 right-4 z-10 bg-primary text-primary-foreground shadow-lg">
                           <Star className="w-3 h-3 mr-1 fill-current" />
                           Featured
                         </Badge>
@@ -267,12 +312,13 @@ const Blog = () => {
                           <img 
                             src={categoryImages[post.category]} 
                             alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            loading={index > 0 ? "lazy" : "eager"}
                           />
                         </div>
                         <CardContent className="p-6">
                           <div className="flex items-center gap-2 mb-3">
-                            <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                            <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
                               {post.category}
                             </span>
                             <span className="text-xs text-muted-foreground flex items-center gap-1">
@@ -284,7 +330,7 @@ const Blog = () => {
                               {post.readTime}
                             </span>
                           </div>
-                          <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
                             {post.title}
                           </h3>
                           <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
@@ -292,15 +338,15 @@ const Blog = () => {
                           </p>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <Avatar className="w-6 h-6">
+                              <Avatar className="w-7 h-7 ring-2 ring-background">
                                 <AvatarImage src={(post.author || defaultAuthor).avatar} alt={(post.author || defaultAuthor).name} />
                                 <AvatarFallback className="text-xs">{(post.author || defaultAuthor).name.slice(0, 2)}</AvatarFallback>
                               </Avatar>
-                              <span className="text-xs text-muted-foreground">{(post.author || defaultAuthor).name}</span>
+                              <span className="text-sm text-muted-foreground">{(post.author || defaultAuthor).name}</span>
                             </div>
-                            <div className="flex items-center gap-2 text-primary text-sm font-medium">
+                            <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
                               Read More
-                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              <ArrowRight className="w-4 h-4" />
                             </div>
                           </div>
                         </CardContent>
@@ -312,21 +358,30 @@ const Blog = () => {
             )}
             
             {/* Blog Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {paginatedPosts.map((post) => (
-                <Link key={post.slug} to={`/blog/${post.slug}`}>
-                  <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {paginatedPosts.map((post, index) => (
+                <Link 
+                  key={post.slug} 
+                  to={`/blog/${post.slug}`}
+                  className={`transition-all duration-700 ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                  style={{ transitionDelay: `${400 + index * 50}ms` }}
+                >
+                  <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-500 group cursor-pointer overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1">
                     {/* Featured Image */}
-                    <div className="aspect-video overflow-hidden">
+                    <div className="aspect-video overflow-hidden relative">
                       <img 
                         src={categoryImages[post.category]} 
                         alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                        <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
                           {post.category}
                         </span>
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
@@ -339,25 +394,25 @@ const Blog = () => {
                         </span>
                       </div>
                       
-                      <h2 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      <h2 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
                         {post.title}
                       </h2>
                       
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                         {post.excerpt}
                       </p>
                       
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Avatar className="w-6 h-6">
+                          <Avatar className="w-6 h-6 ring-2 ring-background">
                             <AvatarImage src={(post.author || defaultAuthor).avatar} alt={(post.author || defaultAuthor).name} />
                             <AvatarFallback className="text-xs">{(post.author || defaultAuthor).name.slice(0, 2)}</AvatarFallback>
                           </Avatar>
                           <span className="text-xs text-muted-foreground">{(post.author || defaultAuthor).name}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-primary text-sm font-medium">
-                          Read More
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
+                          Read
+                          <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
                     </CardContent>
@@ -366,15 +421,31 @@ const Blog = () => {
               ))}
             </div>
 
+            {/* Empty State */}
+            {filteredPosts.length === 0 && (
+              <div className="text-center py-16 max-w-md mx-auto">
+                <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-2">No articles found</h3>
+                <p className="text-muted-foreground mb-6">
+                  Try adjusting your search or filter to find what you're looking for.
+                </p>
+                <Button variant="outline" onClick={() => { setSearchQuery(""); setActiveNiche("all"); }}>
+                  Clear filters
+                </Button>
+              </div>
+            )}
+
             {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="mt-10 max-w-6xl mx-auto">
+            {totalPages > 1 && filteredPosts.length > 0 && (
+              <div className="mt-12 max-w-6xl mx-auto">
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
                       <PaginationPrevious 
                         onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-primary/10"}
                       />
                     </PaginationItem>
                     
@@ -397,29 +468,44 @@ const Blog = () => {
                     <PaginationItem>
                       <PaginationNext 
                         onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-primary/10"}
                       />
                     </PaginationItem>
                   </PaginationContent>
                 </Pagination>
                 <p className="text-center text-sm text-muted-foreground mt-4">
-                  Showing {startIndex + 1}-{Math.min(startIndex + POSTS_PER_PAGE, filteredPosts.length)} of {filteredPosts.length} posts
+                  Showing {startIndex + 1}-{Math.min(startIndex + POSTS_PER_PAGE, filteredPosts.length)} of {filteredPosts.length} articles
                 </p>
               </div>
             )}
 
-            {/* No results message */}
-            {filteredPosts.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No posts found for this category.</p>
-                <button 
-                  onClick={() => setActiveNiche("all")}
-                  className="mt-4 text-primary hover:underline"
-                >
-                  View all posts
-                </button>
+            {/* Newsletter CTA */}
+            <div className="mt-20 max-w-4xl mx-auto">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-8 md:p-12">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                
+                <div className="relative z-10 text-center">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-primary">Stay Updated</span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                    Get Exclusive Updates
+                  </h3>
+                  <p className="text-muted-foreground max-w-lg mx-auto mb-8">
+                    Join our Telegram channel for instant access to the best channels, groups, and earning opportunities. 
+                    No spam, just value.
+                  </p>
+                  <Button size="lg" className="gap-2 shadow-lg shadow-primary/25" asChild>
+                    <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+                      <Users className="w-5 h-5" />
+                      Join Telegram Channel
+                    </a>
+                  </Button>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         </main>
         
