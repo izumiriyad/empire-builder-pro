@@ -55,20 +55,24 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16">
-      {/* Video background with scroll fade */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
-        style={{ 
-          transform: `translateY(${scrollY * 0.1}px)`,
-          opacity: Math.max(0, 1 - scrollY / 500)
-        }}
+      {/* Video background with scroll fade and Ken Burns effect */}
+      <div 
+        className="absolute inset-0 overflow-hidden"
+        style={{ opacity: Math.max(0, 1 - scrollY / 500) }}
       >
-        <source src={heroBackground} type="video/mp4" />
-      </video>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+          style={{ 
+            animation: 'ken-burns 25s ease-in-out infinite',
+          }}
+        >
+          <source src={heroBackground} type="video/mp4" />
+        </video>
+      </div>
       
       {/* Animated film grain overlay with scroll fade */}
       <div 
