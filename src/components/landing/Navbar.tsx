@@ -6,9 +6,10 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#hero", isAnchor: true },
-  { label: "Content", href: "#content", isAnchor: true },
+  { label: "Features", href: "#features", isAnchor: true },
+  { label: "How It Works", href: "#how-it-works", isAnchor: true },
   { label: "Testimonials", href: "#testimonials", isAnchor: true },
-  { label: "Pricing", href: "#pricing", isAnchor: true },
+  { label: "FAQ", href: "#faq", isAnchor: true },
   { label: "Blog", href: "/blog", isAnchor: false },
 ];
 
