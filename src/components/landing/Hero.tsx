@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Play, Star } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
+import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
 const Particle = ({ delay, duration, size, left, initialTop }: { 
   delay: number; 
@@ -34,6 +35,13 @@ const Hero = () => {
       initialTop: 100 + Math.random() * 20,
     })), []
   );
+
+  const { displayText } = useTypingAnimation({
+    texts: ["You Won't Find", "You Can't Miss", "You Deserve"],
+    typingSpeed: 80,
+    deletingSpeed: 40,
+    pauseDuration: 2500,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,7 +99,10 @@ const Hero = () => {
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
           Exclusive Content
           <br />
-          <span className="text-primary">You Won't Find</span>
+          <span className="text-primary">
+            {displayText}
+            <span className="animate-pulse">|</span>
+          </span>
           <br />
           Anywhere Else
         </h1>
