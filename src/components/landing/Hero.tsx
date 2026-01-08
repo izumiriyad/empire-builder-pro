@@ -3,7 +3,7 @@ import { Play, Star } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/20" />
       
