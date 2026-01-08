@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
@@ -20,7 +21,45 @@ const categoryImages: Record<string, string> = {
   Communities: communitiesThumbnail,
 };
 
+// Extract niches from blog post slugs
+const niches = [
+  { id: "all", label: "All" },
+  { id: "crypto", label: "Crypto" },
+  { id: "airdrop", label: "Airdrop" },
+  { id: "earning", label: "Online Earning" },
+  { id: "ai-tools", label: "AI Tools" },
+  { id: "side-hustle", label: "Side Hustle" },
+  { id: "premium", label: "Premium Resources" },
+  { id: "nft", label: "NFT" },
+  { id: "forex", label: "Forex" },
+  { id: "stocks", label: "Stocks" },
+  { id: "trading", label: "Trading Signals" },
+  { id: "dropshipping", label: "Dropshipping" },
+  { id: "programming", label: "Programming" },
+  { id: "gaming", label: "Gaming" },
+  { id: "entertainment", label: "Entertainment" },
+  { id: "betting", label: "Betting" },
+  { id: "music", label: "Music" },
+  { id: "fitness", label: "Fitness" },
+  { id: "movies", label: "Movies" },
+  { id: "books", label: "Books" },
+  { id: "photography", label: "Photography" },
+  { id: "language", label: "Language Learning" },
+  { id: "cooking", label: "Cooking" },
+  { id: "travel", label: "Travel" },
+];
+
 const Blog = () => {
+  const [activeNiche, setActiveNiche] = useState("all");
+
+  const filteredPosts = useMemo(() => {
+    if (activeNiche === "all") return blogPosts;
+    return blogPosts.filter(post => 
+      post.slug.includes(activeNiche) || 
+      post.keywords.toLowerCase().includes(activeNiche)
+    );
+  }, [activeNiche]);
+
   return (
     <>
       <Helmet>
@@ -39,7 +78,7 @@ const Blog = () => {
         <main className="pt-24 pb-16">
           <div className="container mx-auto px-4">
             {/* Header */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                 Best Telegram Channels & Groups
               </h1>
@@ -48,10 +87,29 @@ const Blog = () => {
                 Curated lists of free and active communities.
               </p>
             </div>
+
+            {/* Category Filter */}
+            <div className="mb-10 max-w-6xl mx-auto">
+              <div className="flex flex-wrap gap-2 justify-center">
+                {niches.map((niche) => (
+                  <button
+                    key={niche.id}
+                    onClick={() => setActiveNiche(niche.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      activeNiche === niche.id
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50"
+                    }`}
+                  >
+                    {niche.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             
             {/* Blog Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {blogPosts.map((post) => (
+              {filteredPosts.map((post) => (
                 <Link key={post.slug} to={`/blog/${post.slug}`}>
                   <Card className="h-full bg-card border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer overflow-hidden">
                     {/* Featured Image */}
@@ -90,6 +148,19 @@ const Blog = () => {
                 </Link>
               ))}
             </div>
+
+            {/* No results message */}
+            {filteredPosts.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">No posts found for this category.</p>
+                <button 
+                  onClick={() => setActiveNiche("all")}
+                  className="mt-4 text-primary hover:underline"
+                >
+                  View all posts
+                </button>
+              </div>
+            )}
           </div>
         </main>
         
