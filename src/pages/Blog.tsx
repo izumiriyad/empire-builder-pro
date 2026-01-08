@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Calendar, Search, X, Star } from "lucide-react";
+import { ArrowRight, Calendar, Search, X, Star, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { blogPosts } from "@/data/blogData";
@@ -189,6 +189,10 @@ const Blog = () => {
                               <Calendar className="w-3 h-3" />
                               {new Date(post.date).toLocaleDateString()}
                             </span>
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {post.readTime}
+                            </span>
                           </div>
                           <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                             {post.title}
@@ -229,6 +233,10 @@ const Blog = () => {
                         <span className="text-xs text-muted-foreground flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           {new Date(post.date).toLocaleDateString()}
+                        </span>
+                        <span className="text-xs text-muted-foreground flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {post.readTime}
                         </span>
                       </div>
                       
