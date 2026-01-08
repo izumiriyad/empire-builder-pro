@@ -67,6 +67,15 @@ const Hero = () => {
         <source src={heroBackground} type="video/mp4" />
       </video>
       
+      {/* Animated film grain overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          animation: 'grain 0.5s steps(10) infinite',
+        }}
+      />
+      
       {/* Dark overlay with gradient fade for text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
