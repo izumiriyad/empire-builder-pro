@@ -7,7 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Calendar, Search, X, Star, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { blogPosts } from "@/data/blogData";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { blogPosts, defaultAuthor } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
 import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
@@ -200,9 +201,18 @@ const Blog = () => {
                           <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                             {post.excerpt}
                           </p>
-                          <div className="flex items-center gap-2 text-primary text-sm font-medium">
-                            Read More
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Avatar className="w-6 h-6">
+                                <AvatarImage src={(post.author || defaultAuthor).avatar} alt={(post.author || defaultAuthor).name} />
+                                <AvatarFallback className="text-xs">{(post.author || defaultAuthor).name.slice(0, 2)}</AvatarFallback>
+                              </Avatar>
+                              <span className="text-xs text-muted-foreground">{(post.author || defaultAuthor).name}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-primary text-sm font-medium">
+                              Read More
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -248,9 +258,18 @@ const Blog = () => {
                         {post.excerpt}
                       </p>
                       
-                      <div className="flex items-center gap-2 text-primary text-sm font-medium">
-                        Read More
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Avatar className="w-6 h-6">
+                            <AvatarImage src={(post.author || defaultAuthor).avatar} alt={(post.author || defaultAuthor).name} />
+                            <AvatarFallback className="text-xs">{(post.author || defaultAuthor).name.slice(0, 2)}</AvatarFallback>
+                          </Avatar>
+                          <span className="text-xs text-muted-foreground">{(post.author || defaultAuthor).name}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-primary text-sm font-medium">
+                          Read More
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

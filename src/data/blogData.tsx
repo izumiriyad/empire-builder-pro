@@ -11,7 +11,17 @@ export interface BlogPost {
   category: string;
   content: React.ReactNode;
   featured?: boolean;
+  author?: {
+    name: string;
+    avatar: string;
+  };
 }
+
+// Default author for posts without explicit author
+export const defaultAuthor = {
+  name: "LeakEmpire Team",
+  avatar: "https://api.dicebear.com/7.x/initials/svg?seed=LE&backgroundColor=6366f1"
+};
 
 // Helper function to get related posts by category and keywords
 export const getRelatedPosts = (currentSlug: string, posts: BlogPost[], limit: number = 3): BlogPost[] => {
