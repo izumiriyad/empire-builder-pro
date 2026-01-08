@@ -3,6 +3,7 @@ import { Play } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import videoThumbnail from "@/assets/video-thumbnail.jpg";
+import promoVideo from "@/assets/promo-video.mp4";
 
 interface VideoModalProps {
   thumbnailUrl?: string;
@@ -11,7 +12,7 @@ interface VideoModalProps {
 
 const VideoModal = ({ 
   thumbnailUrl = videoThumbnail,
-  videoUrl = "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"
+  videoUrl = promoVideo
 }: VideoModalProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
