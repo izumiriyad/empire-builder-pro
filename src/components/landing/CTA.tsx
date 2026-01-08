@@ -30,7 +30,13 @@ const CTA = () => {
           </p>
           
           {/* Pricing card */}
-          <div className="bg-card border border-border rounded-2xl p-8 md:p-12 max-w-md mx-auto mb-10">
+          <div className="bg-card border border-border rounded-2xl p-8 md:p-12 max-w-md mx-auto mb-10 relative overflow-hidden">
+            {/* Urgency indicator */}
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/10 border border-destructive/20">
+              <span className="w-2 h-2 rounded-full bg-destructive animate-pulse"></span>
+              <span className="text-xs font-medium text-destructive">12 spots left</span>
+            </div>
+            
             <div className="text-sm text-muted-foreground mb-2">Lifetime Access</div>
             <div className="flex items-baseline justify-center gap-1 mb-6">
               <span className="text-5xl font-bold text-foreground">$19</span>
