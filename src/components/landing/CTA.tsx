@@ -31,10 +31,10 @@ const CTA = () => {
           
           {/* Pricing card */}
           <div className="bg-card border border-border rounded-2xl p-8 md:p-12 max-w-md mx-auto mb-10">
-            <div className="text-sm text-muted-foreground mb-2">Monthly Access</div>
+            <div className="text-sm text-muted-foreground mb-2">Lifetime Access</div>
             <div className="flex items-baseline justify-center gap-1 mb-6">
               <span className="text-5xl font-bold text-foreground">$19</span>
-              <span className="text-muted-foreground">/month</span>
+              <span className="text-muted-foreground">one-time</span>
             </div>
             
             {/* Benefits list */}
