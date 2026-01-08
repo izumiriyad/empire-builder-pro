@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
-import { ExternalLink, Calendar, Clock, Home } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Home, Twitter, Facebook, Linkedin, Share2 } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -235,6 +235,41 @@ const BlogPost = () => {
                   <Clock className="w-4 h-4" />
                   {calculatedReadTime || post.readTime}
                 </span>
+              </div>
+
+              {/* Social Share Buttons */}
+              <div className="flex items-center gap-3 mt-4">
+                <span className="flex items-center gap-1 text-muted-foreground">
+                  <Share2 className="w-4 h-4" />
+                  Share:
+                </span>
+                <a
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  aria-label="Share on Twitter"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  aria-label="Share on Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a
+                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+                  aria-label="Share on LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
               </div>
             </header>
             
