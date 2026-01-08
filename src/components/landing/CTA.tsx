@@ -61,11 +61,19 @@ const CTA = () => {
               ))}
             </ul>
             
-            <Button size="lg" className="w-full text-lg py-6" asChild>
-              <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
-                Join Now
-              </a>
-            </Button>
+            <div className="relative group">
+              <Button size="lg" className="w-full text-lg py-6 relative overflow-hidden" asChild>
+                <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+                  Join Now
+                  {/* Sparkle effects */}
+                  <span className="absolute top-1 left-4 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+                  <span className="absolute top-3 right-6 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping [animation-delay:150ms]" />
+                  <span className="absolute bottom-2 left-8 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping [animation-delay:300ms]" />
+                  <span className="absolute bottom-3 right-4 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping [animation-delay:75ms]" />
+                  <span className="absolute top-2 left-1/2 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping [animation-delay:225ms]" />
+                </a>
+              </Button>
+            </div>
             
             <p className="text-xs text-muted-foreground mt-4">
               Secure payment • Instant access • Cancel anytime
