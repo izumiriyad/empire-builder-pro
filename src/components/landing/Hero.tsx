@@ -4,16 +4,19 @@ import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import VideoModal from "./VideoModal";
 import heroBackground from "@/assets/hero-background.mp4";
-const BokehParticle = ({ delay, duration, size, left, top, opacity }: { 
+const BokehParticle = ({ delay, duration, size, left, top, opacity, mouseX, mouseY, depth }: { 
   delay: number; 
   duration: number; 
   size: number; 
   left: number;
   top: number;
   opacity: number;
+  mouseX: number;
+  mouseY: number;
+  depth: number;
 }) => (
   <div
-    className="absolute rounded-full pointer-events-none"
+    className="absolute rounded-full pointer-events-none transition-transform duration-300 ease-out"
     style={{
       width: size,
       height: size,
@@ -22,13 +25,14 @@ const BokehParticle = ({ delay, duration, size, left, top, opacity }: {
       background: `radial-gradient(circle, hsl(var(--primary) / ${opacity}) 0%, transparent 70%)`,
       filter: `blur(${size / 8}px)`,
       animation: `bokeh-float ${duration}s ease-in-out ${delay}s infinite`,
+      transform: `translate(${mouseX * depth}px, ${mouseY * depth}px)`,
     }}
   />
 );
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
-
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const bokehParticles = useMemo(() => 
     Array.from({ length: 15 }, (_, i) => ({
       id: i,
@@ -38,6 +42,7 @@ const Hero = () => {
       left: Math.random() * 100,
       top: Math.random() * 100,
       opacity: 0.1 + Math.random() * 0.2,
+      depth: 0.02 + Math.random() * 0.06, // Different parallax depth for each particle
     })), []
   );
 
@@ -53,8 +58,18 @@ const Hero = () => {
       setScrollY(window.scrollY);
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX - window.innerWidth / 2);
+      const y = (e.clientY - window.innerHeight / 2);
+      setMousePosition({ x, y });
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
@@ -123,10 +138,15 @@ const Hero = () => {
         style={{ transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.25}px)` }}
       />
       
-      {/* Floating bokeh particles */}
+      {/* Floating bokeh particles with mouse parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {bokehParticles.map((particle) => (
-          <BokehParticle key={particle.id} {...particle} />
+          <BokehParticle 
+            key={particle.id} 
+            {...particle} 
+            mouseX={mousePosition.x}
+            mouseY={mousePosition.y}
+          />
         ))}
       </div>
       
