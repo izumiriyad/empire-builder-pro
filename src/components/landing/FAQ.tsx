@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const faqs = [
   {
@@ -42,9 +43,19 @@ const faqs = [
 ];
 
 const FAQ = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
-    <section id="faq" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="faq" 
+      className="py-24 bg-background"
+      ref={ref as React.RefObject<HTMLElement>}
+    >
+      <div 
+        className={`container mx-auto px-4 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-4">
             <HelpCircle className="w-4 h-4" />
@@ -64,7 +75,10 @@ const FAQ = () => {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="bg-card border border-border rounded-lg px-6 data-[state=open]:border-primary/50"
+                className={`bg-card border border-border rounded-lg px-6 data-[state=open]:border-primary/50 transition-all duration-500 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: isVisible ? `${index * 50}ms` : '0ms' }}
               >
                 <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-4">
                   {faq.question}

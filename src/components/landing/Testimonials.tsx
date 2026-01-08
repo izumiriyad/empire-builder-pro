@@ -1,6 +1,7 @@
 import { Star, Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const testimonials = [
   {
@@ -34,9 +35,19 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
-    <section id="testimonials" className="py-24 bg-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="testimonials" 
+      className="py-24 bg-background"
+      ref={ref as React.RefObject<HTMLElement>}
+    >
+      <div 
+        className={`container mx-auto px-4 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
@@ -52,7 +63,10 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
-              className="bg-card border-border hover:border-primary/30 transition-colors duration-300"
+              className={`bg-card border-border hover:border-primary/30 transition-all duration-500 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
             >
               <CardContent className="p-6">
                 {/* Quote icon */}

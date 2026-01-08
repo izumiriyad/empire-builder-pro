@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check, Zap, UserCheck, Clock, ShieldCheck, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const getTimeUntilMidnight = () => {
   const now = new Date();
@@ -45,15 +46,16 @@ const recentJoins = [
 
 const CTA = () => {
   const [currentJoin, setCurrentJoin] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(true);
   const [countdown, setCountdown] = useState(getTimeUntilMidnight());
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsVisible(false);
+      setIsNotificationVisible(false);
       setTimeout(() => {
         setCurrentJoin((prev) => (prev + 1) % recentJoins.length);
-        setIsVisible(true);
+        setIsNotificationVisible(true);
       }, 300);
     }, 4000);
     return () => clearInterval(interval);
@@ -67,8 +69,16 @@ const CTA = () => {
   }, []);
 
   return (
-    <section id="pricing" className="py-24 bg-gradient-to-b from-secondary/30 to-background">
-      <div className="container mx-auto px-4">
+    <section 
+      id="pricing" 
+      className="py-24 bg-gradient-to-b from-secondary/30 to-background"
+      ref={ref as React.RefObject<HTMLElement>}
+    >
+      <div 
+        className={`container mx-auto px-4 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
@@ -186,9 +196,8 @@ const CTA = () => {
             </div>
           </div>
 
-          {/* Social proof notification */}
           <div 
-            className={`flex items-center gap-2 justify-center mb-6 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+            className={`flex items-center gap-2 justify-center mb-6 transition-opacity duration-300 ${isNotificationVisible ? 'opacity-100' : 'opacity-0'}`}
           >
             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border">
               <UserCheck className="w-4 h-4 text-primary" />
