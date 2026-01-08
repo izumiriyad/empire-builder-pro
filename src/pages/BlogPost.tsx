@@ -3,7 +3,15 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ExternalLink, Calendar, Clock } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { ExternalLink, Calendar, Clock, Home } from "lucide-react";
 import { blogContentMap, blogPosts, getRelatedPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
@@ -49,6 +57,32 @@ const BlogPost = () => {
       "@type": "Organization",
       "name": "LeakEmpire"
     }
+  };
+
+  // Breadcrumb structured data for SEO
+  const breadcrumbStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://leakempire.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://leakempire.io/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://leakempire.io/blog/${slug}`
+      }
+    ]
   };
 
   // FAQ structured data for SEO boost
@@ -102,6 +136,9 @@ const BlogPost = () => {
           {JSON.stringify(structuredData)}
         </script>
         <script type="application/ld+json">
+          {JSON.stringify(breadcrumbStructuredData)}
+        </script>
+        <script type="application/ld+json">
           {JSON.stringify(faqStructuredData)}
         </script>
       </Helmet>
@@ -111,14 +148,31 @@ const BlogPost = () => {
         
         <main className="pt-24 pb-16">
           <article className="container mx-auto px-4 max-w-3xl">
-            {/* Back link */}
-            <Link 
-              to="/blog" 
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Blog
-            </Link>
+            {/* Breadcrumb Navigation */}
+            <Breadcrumb className="mb-8">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/" className="flex items-center gap-1">
+                      <Home className="w-4 h-4" />
+                      Home
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/blog">Blog</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="line-clamp-1 max-w-[200px] md:max-w-none">
+                    {post.title}
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
             
             {/* Featured Image */}
             <div className="aspect-video rounded-xl overflow-hidden mb-8">
