@@ -55,29 +55,36 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16">
-      {/* Video background */}
+      {/* Video background with scroll fade */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+        style={{ 
+          transform: `translateY(${scrollY * 0.1}px)`,
+          opacity: Math.max(0, 1 - scrollY / 500)
+        }}
       >
         <source src={heroBackground} type="video/mp4" />
       </video>
       
-      {/* Animated film grain overlay */}
+      {/* Animated film grain overlay with scroll fade */}
       <div 
-        className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay transition-opacity duration-300"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           animation: 'grain 0.5s steps(10) infinite',
+          opacity: Math.max(0, 0.035 * (1 - scrollY / 500))
         }}
       />
       
-      {/* Dark overlay with gradient fade for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90" />
+      {/* Dark overlay with gradient fade - increases as video fades */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 transition-opacity duration-300"
+        style={{ opacity: Math.min(1, 0.7 + scrollY / 800) }}
+      />
       <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
       
       {/* Animated circles with parallax */}
