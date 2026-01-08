@@ -4,6 +4,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Calendar } from "lucide-react";
+import { blogPosts } from "@/data/blogData";
 
 import guidesThumbnail from "@/assets/blog/guides-thumbnail.jpg";
 import listsThumbnail from "@/assets/blog/lists-thumbnail.jpg";
@@ -19,61 +20,16 @@ const categoryImages: Record<string, string> = {
   Communities: communitiesThumbnail,
 };
 
-const blogPosts = [
-  {
-    slug: "best-telegram-channels-exclusive-content",
-    title: "Best Telegram Channels for Exclusive Content in 2025",
-    excerpt: "Discover the top Telegram channels offering premium exclusive content, behind-the-scenes access, and VIP community experiences.",
-    date: "2025-01-08",
-    category: "Guides",
-  },
-  {
-    slug: "free-premium-telegram-groups",
-    title: "Free Premium Telegram Groups You Need to Join",
-    excerpt: "Looking for quality content without breaking the bank? These Telegram groups offer incredible value for free.",
-    date: "2025-01-07",
-    category: "Lists",
-  },
-  {
-    slug: "telegram-vs-other-platforms",
-    title: "Why Creators Are Moving to Telegram in 2025",
-    excerpt: "Learn why top content creators are choosing Telegram over traditional platforms for exclusive content delivery.",
-    date: "2025-01-06",
-    category: "Insights",
-  },
-  {
-    slug: "telegram-viral-channels-trending",
-    title: "Top Telegram Viral Channels Going Trending in 2025",
-    excerpt: "Find the most viral Telegram channels with trending content. These channels are blowing up with millions of subscribers.",
-    date: "2025-01-05",
-    category: "Trending",
-  },
-  {
-    slug: "exclusive-telegram-communities-join",
-    title: "Exclusive Telegram Communities Worth Joining",
-    excerpt: "Discover private and exclusive Telegram communities offering unique content, networking, and insider access.",
-    date: "2025-01-04",
-    category: "Communities",
-  },
-  {
-    slug: "telegram-private-channels-guide",
-    title: "How to Find Private Telegram Channels in 2025",
-    excerpt: "Complete guide to discovering and joining private Telegram channels with exclusive members-only content.",
-    date: "2025-01-03",
-    category: "Guides",
-  },
-];
-
 const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>Blog - Best Telegram Channels & Exclusive Content Guides</title>
+        <title>Blog - Best Telegram Channels for Crypto, Airdrops & Online Earning</title>
         <meta 
           name="description" 
-          content="Discover the best Telegram channels for exclusive content, premium groups, and VIP communities. Expert guides and curated lists updated weekly." 
+          content="Discover the best Telegram channels for crypto, airdrops, online earning, AI tools, and side hustles. Free and active groups updated for 2025." 
         />
-        <meta name="keywords" content="best telegram channels, free telegram groups, exclusive content telegram, premium telegram" />
+        <meta name="keywords" content="best telegram channels for crypto, free airdrop telegram group, online earning telegram, ai tools telegram, side hustle telegram" />
         <link rel="canonical" href="/blog" />
       </Helmet>
       
@@ -85,10 +41,11 @@ const Blog = () => {
             {/* Header */}
             <div className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Exclusive Content Guides
+                Best Telegram Channels & Groups
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Expert guides, curated lists, and insider tips for finding the best exclusive content online.
+                Find the best Telegram channels for crypto, airdrops, online earning, AI tools, and more. 
+                Curated lists of free and active communities.
               </p>
             </div>
             
