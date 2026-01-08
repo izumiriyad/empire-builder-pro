@@ -34,12 +34,16 @@ const Hero = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="lg" className="text-lg px-8 py-6 gap-2">
-            <Play className="w-5 h-5" />
-            Watch Preview
+          <Button size="lg" className="text-lg px-8 py-6 gap-2" asChild>
+            <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+              <Play className="w-5 h-5" />
+              Watch Preview
+            </a>
           </Button>
-          <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-            Join Now — $19/mo
+          <Button size="lg" variant="outline" className="text-lg px-8 py-6" asChild>
+            <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+              Join Now — $19/mo
+            </a>
           </Button>
         </div>
         

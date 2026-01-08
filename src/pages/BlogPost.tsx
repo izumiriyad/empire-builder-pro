@@ -211,9 +211,11 @@ const BlogPost = () => {
               <p className="text-muted-foreground mb-6">
                 Get instant access to exclusive content. Join our Telegram channel now.
               </p>
-              <Button size="lg" className="gap-2">
-                Join Telegram Channel
-                <ExternalLink className="w-4 h-4" />
+              <Button size="lg" className="gap-2" asChild>
+                <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
+                  Join Telegram Channel
+                  <ExternalLink className="w-4 h-4" />
+                </a>
               </Button>
             </div>
           </article>
