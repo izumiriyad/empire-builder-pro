@@ -1,6 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { Check, Zap, UserCheck } from "lucide-react";
+import { Check, Zap, UserCheck, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
+
+const getTimeUntilMidnight = () => {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight.getTime() - now.getTime();
+  
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  
+  return { hours, minutes, seconds };
+};
 
 const benefits = [
   "Lifetime access – pay once, enjoy forever",
@@ -22,6 +35,7 @@ const recentJoins = [
 const CTA = () => {
   const [currentJoin, setCurrentJoin] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [countdown, setCountdown] = useState(getTimeUntilMidnight());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,6 +46,13 @@ const CTA = () => {
       }, 300);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown(getTimeUntilMidnight());
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -71,6 +92,19 @@ const CTA = () => {
               <span className="inline-flex px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
                 Save 61%
               </span>
+            </div>
+
+            {/* Countdown timer */}
+            <div className="flex items-center justify-center gap-2 mb-6 p-3 rounded-lg bg-destructive/5 border border-destructive/10">
+              <Clock className="w-4 h-4 text-destructive" />
+              <span className="text-sm text-foreground">Offer ends in:</span>
+              <div className="flex items-center gap-1 font-mono font-bold text-destructive">
+                <span className="bg-destructive/10 px-2 py-0.5 rounded">{String(countdown.hours).padStart(2, '0')}</span>
+                <span>:</span>
+                <span className="bg-destructive/10 px-2 py-0.5 rounded">{String(countdown.minutes).padStart(2, '0')}</span>
+                <span>:</span>
+                <span className="bg-destructive/10 px-2 py-0.5 rounded">{String(countdown.seconds).padStart(2, '0')}</span>
+              </div>
             </div>
             
             {/* Benefits list */}
