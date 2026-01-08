@@ -3,7 +3,7 @@ import { Play, Star } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import VideoModal from "./VideoModal";
-
+import heroBackground from "@/assets/hero-background.mp4";
 const Particle = ({ delay, duration, size, left, initialTop }: { 
   delay: number; 
   duration: number; 
@@ -55,11 +55,20 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16">
-      {/* Background gradient with parallax */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/20"
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-      />
+      >
+        <source src={heroBackground} type="video/mp4" />
+      </video>
+      
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-background/70" />
       
       {/* Animated circles with parallax */}
       <div 
