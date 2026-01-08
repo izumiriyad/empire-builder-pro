@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Play, Star, X } from "lucide-react";
+import { Play, Star } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
+import VideoModal from "./VideoModal";
 
 const Particle = ({ delay, duration, size, left, initialTop }: { 
   delay: number; 
@@ -115,30 +115,7 @@ const Hero = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-6 gap-2 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] hover:scale-105"
-              >
-                <Play className="w-5 h-5" />
-                Watch Preview
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-4xl p-0 bg-background border-border overflow-hidden">
-              <div className="relative aspect-video w-full bg-black">
-                <video
-                  className="absolute inset-0 w-full h-full"
-                  src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"
-                  controls
-                  autoPlay
-                  playsInline
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <VideoModal />
           <Button
             size="lg" 
             variant="outline" 
