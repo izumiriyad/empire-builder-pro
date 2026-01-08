@@ -91,7 +91,7 @@ const CTA = () => {
               <div className="p-4 text-left font-semibold text-foreground">Features</div>
               <div className="p-4 text-center font-semibold text-muted-foreground">Free Channel</div>
               <div className="p-4 text-center font-semibold text-primary relative">
-                <span className="absolute -top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[10px] font-bold bg-primary text-primary-foreground rounded-full">
+                <span className="absolute -top-1 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[10px] font-bold bg-primary text-primary-foreground rounded-full animate-pulse shadow-[0_0_10px_hsl(var(--primary)/0.5)]">
                   Most Popular
                 </span>
                 Premium Vault
