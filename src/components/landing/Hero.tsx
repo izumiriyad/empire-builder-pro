@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Play, Star } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Play, Star, X } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
@@ -114,17 +115,29 @@ const Hero = () => {
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button 
-            size="lg" 
-            className="text-lg px-8 py-6 gap-2 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] hover:scale-105" 
-            asChild
-          >
-            <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
-              <Play className="w-5 h-5" />
-              Watch Preview
-            </a>
-          </Button>
-          <Button 
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6 gap-2 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] hover:scale-105"
+              >
+                <Play className="w-5 h-5" />
+                Watch Preview
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-4xl p-0 bg-background border-border overflow-hidden">
+              <div className="relative aspect-video w-full">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                  title="Preview Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+          <Button
             size="lg" 
             variant="outline" 
             className="text-lg px-8 py-6 transition-all duration-300 hover:shadow-[0_0_25px_hsl(var(--primary)/0.3)] hover:border-primary hover:scale-105" 
