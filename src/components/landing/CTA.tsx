@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, Zap, UserCheck, Clock, ShieldCheck } from "lucide-react";
+import { Check, Zap, UserCheck, Clock, ShieldCheck, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const getTimeUntilMidnight = () => {
@@ -21,6 +21,17 @@ const benefits = [
   "No recurring fees or hidden costs",
   "Direct messaging access",
   "Special requests available",
+];
+
+const comparisonFeatures = [
+  { feature: "Daily content updates", free: true, premium: true },
+  { feature: "HD quality videos", free: false, premium: true },
+  { feature: "Exclusive drops", free: false, premium: true },
+  { feature: "Direct messaging access", free: false, premium: true },
+  { feature: "Special requests", free: false, premium: true },
+  { feature: "Early access to new content", free: false, premium: true },
+  { feature: "No watermarks", free: false, premium: true },
+  { feature: "Lifetime access", free: false, premium: true },
 ];
 
 const recentJoins = [
@@ -73,6 +84,33 @@ const CTA = () => {
           <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
             Join today and get instant access to all exclusive content. No commitment, cancel anytime.
           </p>
+
+          {/* Comparison Table */}
+          <div className="bg-card border border-border rounded-2xl overflow-hidden max-w-2xl mx-auto mb-12">
+            <div className="grid grid-cols-3 bg-secondary/50">
+              <div className="p-4 text-left font-semibold text-foreground">Features</div>
+              <div className="p-4 text-center font-semibold text-muted-foreground">Free Channel</div>
+              <div className="p-4 text-center font-semibold text-primary">Premium Vault</div>
+            </div>
+            {comparisonFeatures.map((item, index) => (
+              <div 
+                key={index} 
+                className={`grid grid-cols-3 ${index % 2 === 0 ? 'bg-background' : 'bg-secondary/20'}`}
+              >
+                <div className="p-4 text-left text-sm text-foreground">{item.feature}</div>
+                <div className="p-4 flex justify-center">
+                  {item.free ? (
+                    <Check className="w-5 h-5 text-primary" />
+                  ) : (
+                    <X className="w-5 h-5 text-muted-foreground/50" />
+                  )}
+                </div>
+                <div className="p-4 flex justify-center">
+                  <Check className="w-5 h-5 text-primary" />
+                </div>
+              </div>
+            ))}
+          </div>
           
           {/* Pricing card */}
           <div className="bg-card border border-border rounded-2xl p-8 md:p-12 max-w-md mx-auto mb-10 relative overflow-hidden shadow-[0_0_30px_-5px_hsl(var(--primary)/0.3)] animate-pulse [animation-duration:3s]">
