@@ -99,6 +99,9 @@ const Footer = () => {
         
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} LeakEmpire. All rights reserved. 18+ only.
+                             This website does not host any adult content.
+                          All content is distributed via third-party platforms.
+                                    Not affiliated with Telegram.
         </div>
       </div>
     </footer>
