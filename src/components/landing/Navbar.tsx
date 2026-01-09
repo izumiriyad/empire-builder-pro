@@ -62,9 +62,14 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+            className="flex items-center gap-2 text-xl font-bold text-foreground hover:text-primary transition-colors"
           >
-            Creator<span className="text-primary">Hub</span>
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-destructive rounded-lg flex items-center justify-center text-primary-foreground text-xs font-bold">
+              LE
+            </div>
+            <span className="bg-gradient-to-r from-primary to-destructive bg-clip-text text-transparent">
+              LeakEmpire
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

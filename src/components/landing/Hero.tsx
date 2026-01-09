@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Play, Star } from "lucide-react";
+import { Play, Star, Lock, Crown, Zap } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import VideoModal from "./VideoModal";
@@ -157,57 +157,85 @@ const Hero = () => {
           opacity: Math.max(0, 1 - scrollY / 600) 
         }}
       >
+        {/* Brand Logo */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-br from-primary to-destructive rounded-xl flex items-center justify-center text-primary-foreground font-bold text-lg shadow-lg shadow-primary/30">
+            LE
+          </div>
+          <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-destructive bg-clip-text text-transparent">
+            LeakEmpire
+          </span>
+        </div>
+
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
-          <Star className="w-4 h-4 text-primary fill-primary" />
-          <span className="text-sm font-medium text-primary">Premium Content Creator</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/20 mb-8">
+          <Lock className="w-4 h-4 text-destructive" />
+          <span className="text-sm font-medium text-destructive">18+ Exclusive Content</span>
         </div>
         
         {/* Main headline */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
-          Exclusive Content
-          <br />
-          <span className="text-primary">
-            {displayText}
-            <span className="animate-pulse">|</span>
+          <span className="bg-gradient-to-r from-primary via-destructive to-primary bg-clip-text text-transparent">
+            Exclusive. Unseen.
           </span>
           <br />
-          Anywhere Else
+          <span className="text-foreground">
+            {displayText}
+            <span className="animate-pulse text-primary">|</span>
+          </span>
+          <br />
+          <span className="text-muted-foreground">Empire-Level.</span>
         </h1>
         
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-          Join thousands of members getting access to premium videos, behind-the-scenes content, and exclusive drops every week.
+          Premium content delivered directly to your Telegram. 
+          New drops weekly. Lifetime access.
         </p>
         
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <VideoModal />
+          <Button
+            size="lg"
+            className="text-lg px-8 py-6 bg-gradient-to-r from-primary to-destructive hover:from-primary/90 hover:to-destructive/90 transition-all duration-300 shadow-lg shadow-destructive/30 hover:shadow-destructive/50 hover:scale-105"
+            asChild
+          >
+            <a href="#pricing">
+              <Crown className="w-5 h-5 mr-2" />
+              Get Access Now
+            </a>
+          </Button>
           <Button
             size="lg" 
             variant="outline" 
             className="text-lg px-8 py-6 transition-all duration-300 hover:shadow-[0_0_25px_hsl(var(--primary)/0.3)] hover:border-primary hover:scale-105" 
             asChild
           >
-            <a href="https://t.me/joinleakempire" target="_blank" rel="noopener noreferrer">
-              Join Now — $19/mo
+            <a href="https://t.me/LeakEmpire" target="_blank" rel="noopener noreferrer">
+              <Zap className="w-5 h-5 mr-2" />
+              Preview Channel (Free)
             </a>
           </Button>
         </div>
         
+        {/* Video Preview */}
+        <div className="mt-8">
+          <VideoModal />
+        </div>
+        
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+        <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto py-6 px-8 rounded-2xl bg-card/50 border border-border/50 backdrop-blur-sm">
+          <div>
+            <div className="text-3xl md:text-4xl font-bold text-foreground">500+</div>
+            <div className="text-sm text-muted-foreground">HD Videos</div>
+          </div>
           <div>
             <div className="text-3xl md:text-4xl font-bold text-foreground">10K+</div>
             <div className="text-sm text-muted-foreground">Members</div>
           </div>
           <div>
-            <div className="text-3xl md:text-4xl font-bold text-foreground">500+</div>
-            <div className="text-sm text-muted-foreground">Videos</div>
-          </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-foreground">4.9★</div>
-            <div className="text-sm text-muted-foreground">Rating</div>
+            <div className="text-3xl md:text-4xl font-bold text-foreground">24/7</div>
+            <div className="text-sm text-muted-foreground">New Content</div>
           </div>
         </div>
       </div>
