@@ -4,10 +4,20 @@ import { useEffect, useState, useMemo } from "react";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 import VideoModal from "./VideoModal";
 import heroBackground from "@/assets/hero-background.mp4";
-const BokehParticle = ({ delay, duration, size, left, top, opacity, mouseX, mouseY, depth }: { 
-  delay: number; 
-  duration: number; 
-  size: number; 
+const BokehParticle = ({
+  delay,
+  duration,
+  size,
+  left,
+  top,
+  opacity,
+  mouseX,
+  mouseY,
+  depth,
+}: {
+  delay: number;
+  duration: number;
+  size: number;
   left: number;
   top: number;
   opacity: number;
@@ -33,17 +43,19 @@ const BokehParticle = ({ delay, duration, size, left, top, opacity, mouseX, mous
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const bokehParticles = useMemo(() => 
-    Array.from({ length: 15 }, (_, i) => ({
-      id: i,
-      delay: Math.random() * 8,
-      duration: 12 + Math.random() * 10,
-      size: 40 + Math.random() * 120,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      opacity: 0.1 + Math.random() * 0.2,
-      depth: 0.02 + Math.random() * 0.06, // Different parallax depth for each particle
-    })), []
+  const bokehParticles = useMemo(
+    () =>
+      Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        delay: Math.random() * 8,
+        duration: 12 + Math.random() * 10,
+        size: 40 + Math.random() * 120,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        opacity: 0.1 + Math.random() * 0.2,
+        depth: 0.02 + Math.random() * 0.06, // Different parallax depth for each particle
+      })),
+    [],
   );
 
   const { displayText } = useTypingAnimation({
@@ -59,8 +71,8 @@ const Hero = () => {
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX - window.innerWidth / 2);
-      const y = (e.clientY - window.innerHeight / 2);
+      const x = e.clientX - window.innerWidth / 2;
+      const y = e.clientY - window.innerHeight / 2;
       setMousePosition({ x, y });
     };
 
@@ -73,88 +85,92 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16">
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-16"
+    >
       {/* Video background with scroll fade and Ken Burns effect */}
-      <div 
-        className="absolute inset-0 overflow-hidden"
-        style={{ opacity: Math.max(0, 1 - scrollY / 500) }}
-      >
+      <div className="absolute inset-0 overflow-hidden" style={{ opacity: Math.max(0, 1 - scrollY / 500) }}>
         <video
           autoPlay
           muted
           loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
-          style={{ 
-            animation: 'ken-burns 25s ease-in-out infinite',
+          style={{
+            animation: "ken-burns 25s ease-in-out infinite",
           }}
         >
           <source src={heroBackground} type="video/mp4" />
         </video>
-        
+
         {/* Vignette overlay */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%)'
+            background:
+              "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%)",
           }}
         />
       </div>
-      
+
       {/* Animated film grain overlay with scroll fade */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none mix-blend-overlay transition-opacity duration-300"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          animation: 'grain 0.5s steps(10) infinite',
-          opacity: Math.max(0, 0.035 * (1 - scrollY / 500))
+          animation: "grain 0.5s steps(10) infinite",
+          opacity: Math.max(0, 0.035 * (1 - scrollY / 500)),
         }}
       />
-      
+
       {/* Dark overlay with gradient fade - increases as video fades */}
-      <div 
+      <div
         className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 transition-opacity duration-300"
         style={{ opacity: Math.min(1, 0.7 + scrollY / 800) }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
-      
+
       {/* Animated circles with scroll + mouse parallax */}
-      <div 
+      <div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${scrollY * 0.05 + mousePosition.x * 0.03}px, ${scrollY * 0.15 + mousePosition.y * 0.03}px)` }}
+        style={{
+          transform: `translate(${scrollY * 0.05 + mousePosition.x * 0.03}px, ${scrollY * 0.15 + mousePosition.y * 0.03}px)`,
+        }}
       />
-      <div 
+      <div
         className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000 transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${scrollY * -0.08 + mousePosition.x * -0.04}px, ${scrollY * 0.2 + mousePosition.y * 0.04}px)` }}
+        style={{
+          transform: `translate(${scrollY * -0.08 + mousePosition.x * -0.04}px, ${scrollY * 0.2 + mousePosition.y * 0.04}px)`,
+        }}
       />
-      
+
       {/* Additional parallax decorative elements */}
-      <div 
+      <div
         className="absolute top-1/3 right-1/3 w-64 h-64 bg-primary/3 rounded-full blur-2xl transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${scrollY * -0.12 + mousePosition.x * 0.05}px, ${scrollY * 0.1 + mousePosition.y * -0.03}px)` }}
+        style={{
+          transform: `translate(${scrollY * -0.12 + mousePosition.x * 0.05}px, ${scrollY * 0.1 + mousePosition.y * -0.03}px)`,
+        }}
       />
-      <div 
+      <div
         className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-secondary/10 rounded-full blur-2xl transition-transform duration-300 ease-out"
-        style={{ transform: `translate(${scrollY * 0.1 + mousePosition.x * -0.02}px, ${scrollY * 0.25 + mousePosition.y * 0.05}px)` }}
+        style={{
+          transform: `translate(${scrollY * 0.1 + mousePosition.x * -0.02}px, ${scrollY * 0.25 + mousePosition.y * 0.05}px)`,
+        }}
       />
-      
+
       {/* Floating bokeh particles with mouse parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {bokehParticles.map((particle) => (
-          <BokehParticle 
-            key={particle.id} 
-            {...particle} 
-            mouseX={mousePosition.x}
-            mouseY={mousePosition.y}
-          />
+          <BokehParticle key={particle.id} {...particle} mouseX={mousePosition.x} mouseY={mousePosition.y} />
         ))}
       </div>
-      
-      <div 
+
+      <div
         className="relative z-10 container mx-auto px-4 text-center transition-transform duration-300 ease-out"
-        style={{ 
-          transform: `translate(${mousePosition.x * -0.015}px, ${scrollY * 0.3 + mousePosition.y * -0.015}px)`, 
-          opacity: Math.max(0, 1 - scrollY / 600) 
+        style={{
+          transform: `translate(${mousePosition.x * -0.015}px, ${scrollY * 0.3 + mousePosition.y * -0.015}px)`,
+          opacity: Math.max(0, 1 - scrollY / 600),
         }}
       >
         {/* Brand Logo */}
@@ -172,7 +188,7 @@ const Hero = () => {
           <Lock className="w-4 h-4 text-destructive" />
           <span className="text-sm font-medium text-destructive">18+ Exclusive Content</span>
         </div>
-        
+
         {/* Main headline */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
           <span className="bg-gradient-to-r from-primary via-destructive to-primary bg-clip-text text-transparent">
@@ -186,13 +202,12 @@ const Hero = () => {
           <br />
           <span className="text-muted-foreground">Empire-Level.</span>
         </h1>
-        
+
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-          Premium content delivered directly to your Telegram. 
-          New drops weekly. Lifetime access.
+          Premium content delivered directly to your Telegram. New drops weekly. Lifetime access.
         </p>
-        
+
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
@@ -206,23 +221,23 @@ const Hero = () => {
             </a>
           </Button>
           <Button
-            size="lg" 
-            variant="outline" 
-            className="text-lg px-8 py-6 transition-all duration-300 hover:shadow-[0_0_25px_hsl(var(--primary)/0.3)] hover:border-primary hover:scale-105" 
+            size="lg"
+            variant="outline"
+            className="text-lg px-8 py-6 transition-all duration-300 hover:shadow-[0_0_25px_hsl(var(--primary)/0.3)] hover:border-primary hover:scale-105"
             asChild
           >
-            <a href="https://t.me/LeakEmpire" target="_blank" rel="noopener noreferrer">
+            <a href="https://t.me/joinLeakEmpire" target="_blank" rel="noopener noreferrer">
               <Zap className="w-5 h-5 mr-2" />
               Preview Channel (Free)
             </a>
           </Button>
         </div>
-        
+
         {/* Video Preview */}
         <div className="mt-8">
           <VideoModal />
         </div>
-        
+
         {/* Stats */}
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto py-6 px-8 rounded-2xl bg-card/50 border border-border/50 backdrop-blur-sm">
           <div>
@@ -239,9 +254,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Scroll indicator */}
-      <div 
+      <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
         style={{ opacity: Math.max(0, 1 - scrollY / 200) }}
       >
