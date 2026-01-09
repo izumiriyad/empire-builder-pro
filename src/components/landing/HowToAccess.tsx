@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const HowToAccess = () => {
   const [copied, setCopied] = useState(false);
-  const btcAddress = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh";
+  const btcAddress = "13BRc2Q1Eu6UMDJrj6QzYcwSmzGL2WsPmv";
 
   const copyAddress = () => {
     navigator.clipboard.writeText(btcAddress);
@@ -117,7 +117,7 @@ const HowToAccess = () => {
                 asChild
                 className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:opacity-90"
               >
-                <a href="https://t.me/LeakEmpireSupport" target="_blank" rel="noopener noreferrer">
+                <a href="https://t.me/LeakEmpireAdmin" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Send TXID on Telegram
                 </a>
