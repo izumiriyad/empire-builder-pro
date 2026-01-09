@@ -66,8 +66,13 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo/Brand */}
-          <div className="text-xl font-bold text-foreground">
-            ContentHub
+          <div className="flex items-center gap-2 text-xl font-bold">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-destructive rounded-lg flex items-center justify-center text-primary-foreground text-xs font-bold">
+              LE
+            </div>
+            <span className="bg-gradient-to-r from-primary to-destructive bg-clip-text text-transparent">
+              LeakEmpire
+            </span>
           </div>
           
           {/* Links */}
@@ -93,7 +98,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} ContentHub. All rights reserved.
+          © {new Date().getFullYear()} LeakEmpire. All rights reserved. 18+ only.
         </div>
       </div>
     </footer>
