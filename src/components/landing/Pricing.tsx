@@ -127,7 +127,7 @@ const Pricing = () => {
               </ul>
 
               <a
-                href={plan.id === 'free' ? 'https://t.me/LeakEmpire' : 'https://t.me/EmpireSupport'}
+                href={plan.id === 'free' ? 'https://t.me/LeakEmpire' : 'https://t.me/LeakEmpireAdmin'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`block w-full text-center px-6 py-4 font-semibold rounded-lg transition-all duration-300 ${
