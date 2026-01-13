@@ -1,123 +1,170 @@
-import { Play, Lock } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import React, { useState } from 'react';
+import { Lock } from 'lucide-react';
 
-const videos = [
+// This would ideally come from your Telegram channel data
+const channelContent = [
   {
-    title: "Behind The Scenes",
+    id: 1,
+    title: "Premium Collection #47",
+    thumbnail: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=300&fit=crop",
     duration: "12:34",
-    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=400&fit=crop",
-    locked: false,
+    isLocked: false,
+    telegramLink: "https://t.me/joinleakempire"
   },
   {
+    id: 2,
     title: "Exclusive Interview",
+    thumbnail: "https://images.unsplash.com/photo-1488590014698-63de5bef1589?w=400&h=300&fit=crop",
     duration: "24:15",
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&h=400&fit=crop",
-    locked: true,
+    isLocked: true,
+    telegramLink: "https://t.me/joinleakempire"
   },
   {
+    id: 3,
     title: "Weekly Drop #47",
+    thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
     duration: "18:22",
-    thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop",
-    locked: true,
+    isLocked: true,
+    telegramLink: "hhttps://t.me/joinleakempire"
   },
   {
+    id: 4,
     title: "Fan Q&A Session",
+    thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=300&fit=crop",
     duration: "32:10",
-    thumbnail: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?w=600&h=400&fit=crop",
-    locked: true,
+    isLocked: false,
+    telegramLink: "https://t.me/joinleakempire"
   },
   {
+    id: 5,
     title: "Day In My Life",
+    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=300&fit=crop",
     duration: "15:45",
-    thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=400&fit=crop",
-    locked: false,
+    isLocked: false,
+    telegramLink: "https://t.me/joinleakempire"
   },
   {
+    id: 6,
     title: "Premium Tutorial",
+    thumbnail: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&h=300&fit=crop",
     duration: "45:00",
-    thumbnail: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=400&fit=crop",
-    locked: true,
-  },
+    isLocked: true,
+    telegramLink: "https://t.me/joinleakempire"
+  }
 ];
 
-const VideoPreview = () => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+const ContentCard = ({ content }) => {
+  const handleClick = () => {
+    if (content.isLocked) {
+      // Redirect to Telegram channel for premium access
+      window.open(content.telegramLink, '_blank');
+    } else {
+      // For free content, could preview or redirect
+      window.open(content.telegramLink, '_blank');
+    }
+  };
 
   return (
-    <section 
-      id="content" 
-      className="py-24 bg-secondary/30"
-      ref={ref as React.RefObject<HTMLElement>}
+    <div 
+      className="group relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105"
+      onClick={handleClick}
     >
-      <div 
-        className={`container mx-auto px-4 transition-all duration-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-      >
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Latest Content
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Get instant access to hundreds of exclusive videos when you join
-          </p>
+      <div className="relative aspect-video">
+        <img 
+          src={content.thumbnail} 
+          alt={content.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        
+        {/* Lock Icon for Premium Content */}
+        {content.isLocked && (
+          <div className="absolute top-3 right-3 bg-yellow-500 text-black p-2 rounded-full">
+            <Lock size={16} />
+          </div>
+        )}
+        
+        {/* Duration Badge */}
+        <div className="absolute bottom-3 right-3 bg-black/90 px-2 py-1 rounded text-white text-sm font-semibold">
+          {content.duration}
         </div>
         
-        {/* Video grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video, index) => (
-            <Card 
-              key={index} 
-              className={`group overflow-hidden bg-card border-border hover:border-primary/50 transition-all duration-500 cursor-pointer ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
-            >
-              <CardContent className="p-0">
-                <div className="relative aspect-video overflow-hidden">
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-background/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {video.locked ? (
-                      <div className="flex flex-col items-center gap-2">
-                        <Lock className="w-8 h-8 text-primary" />
-                        <span className="text-sm font-medium text-foreground">Members Only</span>
-                      </div>
-                    ) : (
-                      <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-                        <Play className="w-6 h-6 text-primary-foreground ml-1" />
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Duration badge */}
-                  <div className="absolute bottom-2 right-2 px-2 py-1 bg-background/80 rounded text-xs font-medium text-foreground">
-                    {video.duration}
-                  </div>
-                  
-                  {/* Lock indicator */}
-                  {video.locked && (
-                    <div className="absolute top-2 right-2">
-                      <Lock className="w-4 h-4 text-primary" />
-                    </div>
-                  )}
-                </div>
-                
-                <div className="p-4">
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {video.title}
-                  </h3>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div className="text-white text-center">
+            <p className="text-lg font-semibold mb-2">
+              {content.isLocked ? 'Join Channel' : 'View Now'}
+            </p>
+            <p className="text-sm opacity-90">
+              {content.isLocked ? 'Premium Access Required' : 'Free Preview'}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Title */}
+      <div className="bg-gray-900 p-4">
+        <h3 className="text-white font-semibold text-base group-hover:text-yellow-500 transition-colors">
+          {content.title}
+        </h3>
+      </div>
+    </div>
+  );
+};
+
+const VideoPreview = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedContent = showAll ? channelContent : channelContent.slice(0, 6);
+
+  return (
+    <section className="bg-gray-950 py-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-white mb-4">Latest Content</h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Get instant access to hundreds of exclusive videos when you join our Telegram channel
+          </p>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {displayedContent.map(content => (
+            <ContentCard key={content.id} content={content} />
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center space-y-4">
+          <button
+            onClick={() => window.open('https://t.me/joinleakempire', '_blank')}
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-300 inline-flex items-center gap-2"
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-1.75 8.25c-.131.612-.474.762-.962.475l-2.656-1.963-1.281 1.232c-.143.143-.262.262-.537.262l.188-2.681 4.856-4.387c.212-.188-.044-.293-.331-.106l-6 3.788-2.587-.806c-.562-.175-.575-.562.119-.831l10.094-3.894c.469-.175.881.106.731.831z"/>
+            </svg>
+            Join Premium Channel
+          </button>
+          
+          <p className="text-gray-500 text-sm">
+            By joining, you agree to our <a href="#" className="text-yellow-500 hover:underline">Terms of Service</a> and <a href="#" className="text-yellow-500 hover:underline">Privacy Policy</a>
+          </p>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div className="bg-gray-900 p-6 rounded-lg">
+            <div className="text-yellow-500 text-3xl font-bold mb-2">500+</div>
+            <div className="text-gray-400">Exclusive Videos</div>
+          </div>
+          <div className="bg-gray-900 p-6 rounded-lg">
+            <div className="text-yellow-500 text-3xl font-bold mb-2">Daily</div>
+            <div className="text-gray-400">New Content</div>
+          </div>
+          <div className="bg-gray-900 p-6 rounded-lg">
+            <div className="text-yellow-500 text-3xl font-bold mb-2">24/7</div>
+            <div className="text-gray-400">Access Support</div>
+          </div>
         </div>
       </div>
     </section>
