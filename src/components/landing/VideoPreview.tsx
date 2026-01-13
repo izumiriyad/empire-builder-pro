@@ -6,7 +6,7 @@ const channelContent = [
   {
     id: 1,
     title: "Premium Collection #47",
-    thumbnail: "https://jpg6.su/img/NcCKcWA?w=400&h=300&fit=crop",
+    thumbnail: "https://jpg6.su/img/NcCKcWA",
     duration: "12:34",
     isLocked: false,
     telegramLink: "https://t.me/joinleakempire"
