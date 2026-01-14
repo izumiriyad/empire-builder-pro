@@ -22,8 +22,8 @@ const channelContent = [
   {
     id: 3,
     title: "Weekly Drop #47",
-    thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
-    duration: "18:22",
+    thumbnail: "/tg/3.jpg",
+    duration: "58:22",
     isLocked: true,
     telegramLink: "hhttps://t.me/joinleakempire"
   },
