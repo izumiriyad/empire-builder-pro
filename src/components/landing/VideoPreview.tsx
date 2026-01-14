@@ -38,8 +38,8 @@ const channelContent = [
   {
     id: 5,
     title: "Day In My Life",
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=300&fit=crop",
-    duration: "15:45",
+    thumbnail: "/tg/5.jpg",
+    duration: "15:15",
     isLocked: false,
     telegramLink: "https://t.me/joinleakempire"
   },
