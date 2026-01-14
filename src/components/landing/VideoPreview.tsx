@@ -14,8 +14,8 @@ const channelContent = [
   {
     id: 2,
     title: "Exclusive Interview",
-    thumbnail: "https://images.unsplash.com/photo-1488590014698-63de5bef1589?w=400&h=300&fit=crop",
-    duration: "24:15",
+    thumbnail: "/tg/2.jpg",
+    duration: "44:15",
     isLocked: true,
     telegramLink: "https://t.me/joinleakempire"
   },
