@@ -30,7 +30,7 @@ const channelContent = [
   {
     id: 4,
     title: "Fan Q&A Session",
-    thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=300&fit=crop",
+    thumbnail: "/tg/4.jpg",
     duration: "32:10",
     isLocked: false,
     telegramLink: "https://t.me/joinleakempire"
@@ -46,8 +46,8 @@ const channelContent = [
   {
     id: 6,
     title: "Premium Tutorial",
-    thumbnail: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&h=300&fit=crop",
-    duration: "45:00",
+    thumbnail: "/tg/6.jpg",
+    duration: "00:00",
     isLocked: true,
     telegramLink: "https://t.me/joinleakempire"
   }
