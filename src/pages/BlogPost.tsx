@@ -144,13 +144,13 @@ const BlogPost = () => {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://leakempire.io/blog"
+        "item": "https://leakempire.vercel.app/blog"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": post.title,
-        "item": `https://leakempire.io/blog/${slug}`
+        "item": `https://leakempire.vercel.app/blog/${slug}`
       }
     ]
   };
@@ -330,7 +330,7 @@ const BlogPost = () => {
                   Share:
                 </span>
                 <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://leakempire.vercel.app/blog/${slug}`)}&text=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -339,7 +339,7 @@ const BlogPost = () => {
                   <Twitter className="w-4 h-4" />
                 </a>
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://leakempire.vercel.app/blog/${slug}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -348,7 +348,7 @@ const BlogPost = () => {
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://leakempire.io/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
+                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(`https://leakempire.vercel.app/blog/${slug}`)}&title=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
@@ -358,7 +358,7 @@ const BlogPost = () => {
                 </a>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`https://leakempire.io/blog/${slug}`);
+                    navigator.clipboard.writeText(`https://leakempire.vercel.app/blog/${slug}`);
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
