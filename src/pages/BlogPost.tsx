@@ -138,7 +138,7 @@ const BlogPost = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://leakempire.io"
+        "item": "https://leakempire.vercel.app"
       },
       {
         "@type": "ListItem",
