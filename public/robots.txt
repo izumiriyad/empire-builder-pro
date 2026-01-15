@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://leakempire.io/sitemap.xml
+Sitemap: https://leakempire.vercel.app/sitemap.xml
