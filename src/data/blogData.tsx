@@ -116,6 +116,84 @@ export const blogPosts: BlogPost[] = [
           description="This channel focuses on sharing useful crypto resources, market updates, and trading insights regularly. Unlike many inactive groups, this one stays consistently active with quality content."
         />
 
+        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+Top Crypto Telegram Channels to Join
+</h2>
+
+<ul className="space-y-4 text-muted-foreground mb-6">
+  <li>
+    <strong>Binance Killers</strong> — 
+    <a href="https://t.me/BinanceKillers" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/BinanceKillers
+    </a>
+    <br />
+    Cited in research as the official channel with 230k+ subscribers.
+  </li>
+
+  <li>
+    <strong>Fed Russian Insiders</strong> — 
+    <a href="https://t.me/fedrussianinsiders" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/fedrussianinsiders
+    </a>
+    <br />
+    Cited with ~100k+ active subscribers and specific handle.
+  </li>
+
+  <li>
+    <strong>Wolfx Signals</strong> — 
+    <a href="https://t.me/wolfxsignals_free" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/wolfxsignals_free
+    </a>
+    <br />
+    Listed by the provider as their official free group link.
+  </li>
+
+  <li>
+    <strong>Wall Street Queen Official</strong> — 
+    <a href="https://t.me/Wallstreetqueen_official" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/Wallstreetqueen_official
+    </a>
+    <br />
+    Known trend-following trading community.
+  </li>
+
+  <li>
+    <strong>Bitcoin Bullets</strong> — 
+    <a href="https://t.me/Bitcoin_Bullets" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/Bitcoin_Bullets
+    </a>
+    <br />
+    Bitcoin-focused signals and market analysis.
+  </li>
+
+  <li>
+    <strong>Crypto Pump Club</strong> — 
+    <a href="https://t.me/CryptoPumpClub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/CryptoPumpClub
+    </a>
+    <br />
+    High-risk speculative pump coordination channel.
+  </li>
+
+  <li>
+    <strong>Fat Pig Signals</strong> — 
+    <a href="https://t.me/FatPigSignals" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/FatPigSignals
+    </a>
+    <br />
+    Popular spot and swing trading signal channel.
+  </li>
+
+  <li>
+    <strong>Learn2Trade</strong> — 
+    <a href="https://t.me/Learn2trade" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+      t.me/Learn2trade
+    </a>
+    <br />
+    Education-focused crypto trading community.
+  </li>
+</ul>
+
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What to Look for in Crypto Telegram Groups</h2>
         <ul className="list-disc list-inside text-muted-foreground mb-6 space-y-2">
           <li>Regular market updates and analysis</li>
