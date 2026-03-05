@@ -117,62 +117,61 @@ export const blogPosts: BlogPost[] = [
 
           <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Top “Active & Free” Channel Links</h2>
 
-  <div class="channel">
+  
     <h3>Binance Killers</h3>
     <p><strong>Handle:</strong> @BinanceKillers</p>
     <p><strong>Link:</strong> <a href="https://t.me/BinanceKillers" target="_blank">t.me/BinanceKillers</a></p>
     <p><strong>Verification:</strong> Cited in research as the official channel with 230k+ subscribers.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Fed Russian Insiders</h3>
     <p><strong>Handle:</strong> @fedrussianinsiders</p>
     <p><strong>Link:</strong> <a href="https://t.me/fedrussianinsiders" target="_blank">t.me/fedrussianinsiders</a></p>
     <p><strong>Verification:</strong> Cited with ~100k+ active subscribers and specific handle.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Wolfx Signals</h3>
     <p><strong>Handle:</strong> @wolfxsignals_free</p>
     <p><strong>Link:</strong> <a href="https://t.me/wolfxsignals_free" target="_blank">t.me/wolfxsignals_free</a></p>
     <p><strong>Verification:</strong> Explicitly listed by the provider as their official free group link.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Wall Street Queen Official</h3>
     <p><strong>Handle:</strong> @Wallstreetqueen_official</p>
     <p><strong>Link:</strong> <a href="https://t.me/Wallstreetqueen_official" target="_blank">t.me/Wallstreetqueen_official</a></p>
     <p><strong>Verification:</strong> Cited as the correct handle for the trend-following community.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Bitcoin Bullets</h3>
     <p><strong>Handle:</strong> @Bitcoin_Bullets</p>
     <p><strong>Link:</strong> <a href="https://t.me/Bitcoin_Bullets" target="_blank">t.me/Bitcoin_Bullets</a></p>
     <p><strong>Verification:</strong> Verified handle for the Bitcoin-specific focus group.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Crypto Pump Club</h3>
     <p><strong>Handle:</strong> @CryptoPumpClub</p>
     <p><strong>Link:</strong> <a href="https://t.me/CryptoPumpClub" target="_blank">t.me/CryptoPumpClub</a></p>
     <p><strong>Verification:</strong> Cited handle. Note: This channel is categorized as high-risk/speculative “pump” coordination rather than technical analysis.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Fat Pig Signals</h3>
     <p><strong>Handle:</strong> @FatPigSignals</p>
     <p><strong>Link:</strong> <a href="https://t.me/FatPigSignals" target="_blank">t.me/FatPigSignals</a></p>
     <p><strong>Verification:</strong> Verified handle for the spot/swing trading group.</p>
-  </div>
+  
 
-  <div class="channel">
+  
     <h3>Learn2Trade</h3>
     <p><strong>Handle:</strong> @Learn2trade</p>
     <p><strong>Link:</strong> <a href="https://t.me/Learn2trade" target="_blank">t.me/Learn2trade</a></p>
     <p><strong>Verification:</strong> Verified handle for the education-focused group.</p>
-  </div>
-
+  
         />
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What to Look for in Crypto Telegram Groups</h2>
