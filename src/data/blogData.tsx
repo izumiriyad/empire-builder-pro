@@ -116,7 +116,6 @@ export const blogPosts: BlogPost[] = [
           description="This channel focuses on sharing useful crypto resources, market updates, and trading insights regularly. Unlike many inactive groups, this one stays consistently active with quality content."
 
           <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">Top “Active & Free” Channel Links</h2>
-        <div class="telegram-channels">
 
   <div class="channel">
     <h3>Binance Killers</h3>
@@ -174,7 +173,6 @@ export const blogPosts: BlogPost[] = [
     <p><strong>Verification:</strong> Verified handle for the education-focused group.</p>
   </div>
 
-</div>
         />
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What to Look for in Crypto Telegram Groups</h2>
