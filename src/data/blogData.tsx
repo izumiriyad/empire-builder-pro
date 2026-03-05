@@ -116,84 +116,137 @@ export const blogPosts: BlogPost[] = [
           description="This channel focuses on sharing useful crypto resources, market updates, and trading insights regularly. Unlike many inactive groups, this one stays consistently active with quality content."
         />
 
-        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+       <h2 className="text-2xl font-bold text-foreground mt-8 mb-6">
 Top Crypto Telegram Channels to Join
 </h2>
 
-<ul className="space-y-4 text-muted-foreground mb-6">
-  <li>
-    <strong>Binance Killers</strong> — 
-    <a href="https://t.me/BinanceKillers" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/BinanceKillers
-    </a>
-    <br />
-    Cited in research as the official channel with 230k+ subscribers.
-  </li>
+<div className="grid md:grid-cols-2 gap-6 mb-8">
 
-  <li>
-    <strong>Fed Russian Insiders</strong> — 
-    <a href="https://t.me/fedrussianinsiders" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/fedrussianinsiders
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Binance Killers</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      One of the most well-known crypto trading communities with over 230k subscribers sharing market signals and updates.
+    </p>
+    <a
+      href="https://t.me/BinanceKillers"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Cited with ~100k+ active subscribers and specific handle.
-  </li>
+  </div>
 
-  <li>
-    <strong>Wolfx Signals</strong> — 
-    <a href="https://t.me/wolfxsignals_free" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/wolfxsignals_free
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Fed Russian Insiders</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Popular crypto signals community with around 100k+ members focused on short-term trading opportunities.
+    </p>
+    <a
+      href="https://t.me/fedrussianinsiders"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Listed by the provider as their official free group link.
-  </li>
+  </div>
 
-  <li>
-    <strong>Wall Street Queen Official</strong> — 
-    <a href="https://t.me/Wallstreetqueen_official" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/Wallstreetqueen_official
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Wolfx Signals</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Free crypto signals group known for frequent market updates and technical trading signals.
+    </p>
+    <a
+      href="https://t.me/wolfxsignals_free"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Known trend-following trading community.
-  </li>
+  </div>
 
-  <li>
-    <strong>Bitcoin Bullets</strong> — 
-    <a href="https://t.me/Bitcoin_Bullets" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/Bitcoin_Bullets
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Wall Street Queen Official</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Trend-following trading community sharing insights about crypto market momentum.
+    </p>
+    <a
+      href="https://t.me/Wallstreetqueen_official"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Bitcoin-focused signals and market analysis.
-  </li>
+  </div>
 
-  <li>
-    <strong>Crypto Pump Club</strong> — 
-    <a href="https://t.me/CryptoPumpClub" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/CryptoPumpClub
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Bitcoin Bullets</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Bitcoin-focused trading signals and market analysis shared with an active trading community.
+    </p>
+    <a
+      href="https://t.me/Bitcoin_Bullets"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    High-risk speculative pump coordination channel.
-  </li>
+  </div>
 
-  <li>
-    <strong>Fat Pig Signals</strong> — 
-    <a href="https://t.me/FatPigSignals" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/FatPigSignals
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Crypto Pump Club</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Known for pump coordination and speculative trading discussions. High risk compared to analytical channels.
+    </p>
+    <a
+      href="https://t.me/CryptoPumpClub"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Popular spot and swing trading signal channel.
-  </li>
+  </div>
 
-  <li>
-    <strong>Learn2Trade</strong> — 
-    <a href="https://t.me/Learn2trade" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-      t.me/Learn2trade
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Fat Pig Signals</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Spot and swing trading signals with strong community engagement.
+    </p>
+    <a
+      href="https://t.me/FatPigSignals"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
     </a>
-    <br />
-    Education-focused crypto trading community.
-  </li>
-</ul>
+  </div>
 
+  <div className="border border-border rounded-xl p-5 bg-card">
+    <h3 className="font-bold text-lg">Learn2Trade</h3>
+    <p className="text-sm text-muted-foreground mt-2">
+      Education-focused trading community sharing market insights and beginner-friendly analysis.
+    </p>
+    <a
+      href="https://t.me/Learn2trade"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary font-medium mt-3 inline-block hover:underline"
+    >
+      Join Channel →
+    </a>
+  </div>
+
+</div>
+<p className="text-muted-foreground mb-6">
+Many traders also follow curated communities like <strong>LeakEmpire</strong> to discover new trading groups and resources faster.
+</p>
+        
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">What to Look for in Crypto Telegram Groups</h2>
         <ul className="list-disc list-inside text-muted-foreground mb-6 space-y-2">
           <li>Regular market updates and analysis</li>
